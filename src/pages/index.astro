@@ -1,0 +1,190 @@
+---
+import { getCollection } from "astro:content";
+
+import CTABanner from "../components/CTABanner.astro";
+import Layout from "../layouts/Layout.astro";
+import { pillarLabel, servicePillars } from "../data/services";
+
+const featuredCaseStudies = (await getCollection("case-studies"))
+  .filter((entry) => entry.data.featured && !entry.data.draft)
+  .slice(0, 3);
+---
+
+<Layout
+  title="Northlace | Every cloud. One standard."
+  description="Northlace runs cloud, DevOps, and security operations behind growing companies."
+  canonicalPath="/"
+>
+  <section class="bg-northlace-900 py-16 text-text-on-dark md:py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <p class="text-small text-northlace-100">Northlace</p>
+      <h1 class="mt-4 max-w-4xl text-display">Every cloud. One standard.</h1>
+      <p class="mt-6 max-w-3xl text-body text-northlace-100">
+        Northlace runs the cloud, DevOps, and security operations behind growing
+        companies so engineering teams ship, and leadership teams sleep.
+      </p>
+      <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+        <a
+          class="rounded-md bg-northlace-700 px-5 py-3 text-body text-text-on-dark hover:bg-northlace-400 hover:text-northlace-900"
+          href="/contact"
+        >
+          Book a discovery call
+        </a>
+        <a
+          class="rounded-md border border-northlace-100 px-5 py-3 text-body text-text-on-dark hover:bg-northlace-700"
+          href="/case-studies"
+        >
+          See how we work
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24" aria-labelledby="trust-strip">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="trust-strip" class="text-h2 text-northlace-900">
+        Platforms and practices we support
+      </h2>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {
+          [
+            "Amazon Web Services",
+            "Microsoft Azure",
+            "Google Cloud",
+            "Kubernetes ecosystem",
+            "Cloud governance",
+            "Open-source delivery",
+          ].map((item) => (
+            <span class="rounded-md bg-northlace-50 px-4 py-2 text-small text-northlace-700">
+              {item}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="bg-northlace-50 py-16 md:py-24"
+    aria-labelledby="two-audiences"
+  >
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-2">
+      <div>
+        <h2 id="two-audiences" class="text-h2 text-northlace-900">
+          Built by engineers who've run it at scale
+        </h2>
+        <ul class="mt-6 space-y-3 text-body">
+          <li>Multi-cloud architecture with production handover in mind.</li>
+          <li>
+            Kubernetes operations, observability stacks, and incident response
+            workflows.
+          </li>
+          <li>
+            Security and compliance tooling that fits delivery instead of
+            slowing it down.
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-h2 text-northlace-900">
+          Less downtime. Lower cloud bills. Fewer 3am calls
+        </h2>
+        <ul class="mt-6 space-y-3 text-body">
+          <li>Clearer ownership before urgent work becomes a crisis.</li>
+          <li>Cost signals that help teams make better tradeoffs earlier.</li>
+          <li>Operations rhythms that reduce surprise and restore focus.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24" aria-labelledby="service-pillars">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="service-pillars" class="text-h2 text-northlace-900">
+        Four service pillars
+      </h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {
+          servicePillars.map((pillar) => (
+            <article class="rounded-lg border border-northlace-900/10 bg-surface-warm p-6">
+              <p class="text-small text-northlace-700">
+                Northlace {pillar.shortName}
+              </p>
+              <h3 class="mt-2 text-h3 text-northlace-900">{pillar.name}</h3>
+              <p class="mt-3 text-body">{pillar.value}</p>
+              <a
+                class="mt-4 inline-flex text-small text-northlace-700 underline"
+                href={pillar.href}
+              >
+                Learn more about {pillar.shortName}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="bg-northlace-50 py-16 md:py-24"
+    aria-labelledby="featured-case-studies"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="featured-case-studies" class="text-h2 text-northlace-900">
+        Featured case studies
+      </h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        {
+          featuredCaseStudies.map((entry) => (
+            <article class="rounded-lg border border-northlace-900/10 bg-surface-warm p-6">
+              <p class="text-small text-northlace-700">
+                {entry.data.clientLabel}
+              </p>
+              <h3 class="mt-2 text-h3 text-northlace-900">
+                {entry.data.title}
+              </h3>
+              <p class="mt-3 text-body">
+                {entry.data.heroMetric.value} {entry.data.heroMetric.label}
+              </p>
+              <p class="mt-3 text-small text-northlace-700">
+                {entry.data.pillars
+                  .map((pillar) => pillarLabel(pillar))
+                  .join(" / ")}
+              </p>
+              <a
+                class="mt-4 inline-flex text-small text-northlace-700 underline"
+                href={`/case-studies/${entry.id}`}
+              >
+                Read case study
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24" aria-labelledby="how-we-work">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="how-we-work" class="text-h2 text-northlace-900">How we work</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-4">
+        {
+          ["Assess", "Design", "Implement", "Operate"].map((step) => (
+            <div class="rounded-lg border border-northlace-900/10 p-5">
+              <h3 class="text-h3 text-northlace-900">{step}</h3>
+              <p class="mt-2 text-small">
+                A clear step with visible decisions and handover.
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    heading="Ready to stop firefighting your infrastructure?"
+    buttonText="Book a discovery call"
+    buttonHref="/contact"
+  />
+</Layout>

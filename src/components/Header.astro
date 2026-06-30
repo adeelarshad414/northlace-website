@@ -1,0 +1,95 @@
+---
+import Logo from "./Logo.astro";
+
+const navLinks = [
+  { href: "/services", label: "Services" },
+  { href: "/case-studies", label: "Case studies" },
+  { href: "/about", label: "About" },
+  { href: "/careers", label: "Careers" },
+  { href: "/blog", label: "Blog" },
+];
+---
+
+<header class="bg-northlace-900 text-text-on-dark" data-mobile-menu-root>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+    <Logo variant="dark" />
+
+    <nav
+      class="hidden items-center gap-8 text-small md:flex"
+      aria-label="Primary navigation"
+    >
+      {
+        navLinks.map((link) => (
+          <a
+            class="text-text-on-dark hover:text-northlace-100"
+            href={link.href}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center md:flex">
+      <a
+        class="rounded-md bg-northlace-700 px-4 py-2 text-small text-text-on-dark hover:bg-northlace-400 hover:text-northlace-900"
+        href="/contact"
+      >
+        Book a discovery call
+      </a>
+    </div>
+
+    <button
+      class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-northlace-100/40 text-text-on-dark md:hidden"
+      type="button"
+      data-mobile-menu-toggle
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M4 6h16M4 12h16M4 18h16"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-width="2"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="border-t border-northlace-100/30 px-6 pb-6 pt-2 md:hidden"
+    data-mobile-menu-panel
+    hidden
+  >
+    <nav class="flex flex-col gap-4 text-body" aria-label="Mobile navigation">
+      {
+        navLinks.map((link) => (
+          <a
+            class="rounded-md px-2 py-2 text-text-on-dark hover:bg-northlace-700"
+            href={link.href}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        class="rounded-md bg-northlace-700 px-4 py-3 text-center text-body text-text-on-dark hover:bg-northlace-400 hover:text-northlace-900"
+        href="/contact"
+      >
+        Book a discovery call
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import { initMobileMenu } from "../scripts/mobile-menu";
+
+  const root = document.querySelector<HTMLElement>("[data-mobile-menu-root]");
+  if (root) {
+    initMobileMenu(root);
+  }
+</script>

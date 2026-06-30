@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/dates";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
+const tags = Array.from(
+  new Set(posts.flatMap((post) => post.data.tags)),
+).sort();
+const pageSize = 6;
+const pageCount = Math.max(1, Math.ceil(posts.length / pageSize));
+const visiblePosts = posts.slice(0, pageSize);
+---
+
+<Layout
+  title="Blog | Northlace"
+  description="Northlace writing on cloud, DevOps, careers, and AI-native work."
+  canonicalPath="/blog"
+>
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <h1 class="text-h1 text-northlace-900">Blog</h1>
+    <p class="mt-5 max-w-3xl text-body">
+      Notes and announcements from Northlace and its surrounding engineering
+      ecosystem.
+    </p>
+    <div
+      class="mt-8 flex flex-wrap gap-3"
+      data-filter-group
+      data-filter-items="[data-blog-card]"
+      data-empty-state="#blog-empty"
+    >
+      <button
+        class="rounded-md border border-northlace-700 px-4 py-2 text-small text-northlace-700 data-[state=active]:bg-northlace-700 data-[state=active]:text-text-on-dark"
+        type="button"
+        data-filter-value="all">All</button
+      >
+      {
+        tags.map((tag) => (
+          <button
+            class="rounded-md border border-northlace-700 px-4 py-2 text-small text-northlace-700 data-[state=active]:bg-northlace-700 data-[state=active]:text-text-on-dark"
+            type="button"
+            data-filter-value={tag}
+          >
+            {tag}
+          </button>
+        ))
+      }
+    </div>
+    <p id="blog-empty" class="mt-8 text-body" hidden>
+      Nothing published yet. Check back soon.
+    </p>
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      {
+        visiblePosts.map((post) => (
+          <article
+            class="rounded-lg border border-northlace-900/10 p-6"
+            data-blog-card
+            data-filter-keys={post.data.tags.join(" ")}
+          >
+            <p class="text-small text-northlace-700">
+              {formatDate(post.data.publishDate)}
+            </p>
+            <h2 class="mt-2 text-h3 text-northlace-900">{post.data.title}</h2>
+            <p class="mt-3 text-body">{post.data.summary}</p>
+            <p class="mt-3 text-small text-northlace-700">
+              {post.data.tags.join(" / ")}
+            </p>
+            <a
+              class="mt-5 inline-flex text-small text-northlace-700 underline"
+              href={`/blog/${post.id}`}
+            >
+              Read post
+            </a>
+          </article>
+        ))
+      }
+    </div>
+    <nav
+      class="mt-10 flex items-center justify-between border-t border-northlace-900/10 pt-5 text-small text-northlace-700"
+      aria-label="Blog pagination"
+    >
+      <span>Page 1 of {pageCount}</span>
+      <div class="flex gap-3">
+        <span aria-disabled="true">Previous</span>
+        <span aria-disabled={pageCount === 1 ? "true" : "false"}>Next</span>
+      </div>
+    </nav>
+  </section>
+  <script>
+    import "../../scripts/content-filters";
+  </script>
+</Layout>

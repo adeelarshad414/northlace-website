@@ -1,0 +1,91 @@
+---
+import Logo from "./Logo.astro";
+
+const year = new Date().getFullYear();
+const sitemapLinks = [
+  { href: "/services", label: "Services" },
+  { href: "/case-studies", label: "Case studies" },
+  { href: "/about", label: "About" },
+  { href: "/careers", label: "Careers" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
+const legalLinks = [
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+];
+const socialLinks = [
+  { href: "https://www.linkedin.com/", label: "LinkedIn" },
+  { href: "https://github.com/", label: "GitHub" },
+];
+---
+
+<footer class="bg-northlace-900 text-text-on-dark">
+  <div
+    class="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]"
+  >
+    <div>
+      <Logo variant="dark" />
+      <p class="mt-5 max-w-sm text-small text-northlace-100">
+        Every cloud. One standard. Open-source discipline for enterprise cloud,
+        security, and operations work.
+      </p>
+    </div>
+
+    <nav aria-label="Sitemap">
+      <h2 class="text-h3 text-text-on-dark">Sitemap</h2>
+      <ul class="mt-4 space-y-3 text-small text-northlace-100">
+        {
+          sitemapLinks.map((link) => (
+            <li>
+              <a class="hover:text-text-on-dark" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <nav aria-label="Social links">
+      <h2 class="text-h3 text-text-on-dark">Social</h2>
+      <ul class="mt-4 space-y-3 text-small text-northlace-100">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a class="hover:text-text-on-dark" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <nav aria-label="Legal and source links">
+      <h2 class="text-h3 text-text-on-dark">Legal</h2>
+      <ul class="mt-4 space-y-3 text-small text-northlace-100">
+        {
+          legalLinks.map((link) => (
+            <li>
+              <a class="hover:text-text-on-dark" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a class="hover:text-text-on-dark" href="https://github.com/">
+            Open source
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="border-t border-northlace-100/30">
+    <p class="mx-auto max-w-6xl px-6 py-5 text-small text-northlace-100">
+      &copy; {year} Northlace. All rights reserved.
+    </p>
+  </div>
+</footer>

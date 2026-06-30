@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Page not found | Northlace"
+  description="This Northlace page does not exist."
+  canonicalPath="/404"
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <h1 class="text-h1 text-northlace-900">This page doesn't exist.</h1>
+    <p class="mt-5 text-body">
+      Use the main navigation, return home, or explore services.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        class="rounded-md bg-northlace-700 px-5 py-3 text-body text-text-on-dark"
+        href="/">Home</a
+      >
+      <a
+        class="rounded-md border border-northlace-700 px-5 py-3 text-body text-northlace-700"
+        href="/services">Services</a
+      >
+    </div>
+  </section>
+</Layout>

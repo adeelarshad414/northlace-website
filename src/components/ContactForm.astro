@@ -1,0 +1,197 @@
+---
+interface Props {
+  context?: "contact" | "apply";
+  roleSlug?: string;
+  roleTitle?: string;
+}
+
+const { context = "contact", roleSlug = "", roleTitle = "" } = Astro.props;
+const isApply = context === "apply";
+---
+
+<form
+  class="space-y-5"
+  method="post"
+  action={isApply ? "/api/apply" : "/api/contact"}
+  data-enhanced-form
+  novalidate
+>
+  {
+    isApply && (
+      <>
+        <input type="hidden" name="roleSlug" value={roleSlug} />
+        <input type="hidden" name="roleTitle" value={roleTitle} />
+      </>
+    )
+  }
+
+  <div>
+    <label class="block text-small text-text-primary" for={`${context}-name`}
+      >Name</label
+    >
+    <input
+      class="mt-2 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+      id={`${context}-name`}
+      name="name"
+      type="text"
+      autocomplete="name"
+      aria-describedby={`${context}-name-error`}
+      required
+    />
+    <p
+      class="mt-2 text-small text-status-amber"
+      id={`${context}-name-error`}
+      data-error-for="name"
+    >
+    </p>
+  </div>
+
+  <div>
+    <label class="block text-small text-text-primary" for={`${context}-email`}
+      >Email</label
+    >
+    <input
+      class="mt-2 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+      id={`${context}-email`}
+      name="email"
+      type="email"
+      autocomplete="email"
+      aria-describedby={`${context}-email-error`}
+      required
+    />
+    <p
+      class="mt-2 text-small text-status-amber"
+      id={`${context}-email-error`}
+      data-error-for="email"
+    >
+    </p>
+  </div>
+
+  {
+    isApply ? (
+      <>
+        <div>
+          <label class="block text-small text-text-primary" for="resumeUrl">
+            Resume link
+          </label>
+          <input
+            class="mt-2 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+            id="resumeUrl"
+            name="resumeUrl"
+            type="url"
+            aria-describedby="resumeUrl-error"
+            required
+          />
+          <p
+            class="mt-2 text-small text-status-amber"
+            id="resumeUrl-error"
+            data-error-for="resumeUrl"
+          />
+        </div>
+        <div>
+          <label class="block text-small text-text-primary" for="coverNote">
+            Cover note
+          </label>
+          <textarea
+            class="mt-2 min-h-36 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+            id="coverNote"
+            name="coverNote"
+          />
+        </div>
+      </>
+    ) : (
+      <>
+        <div class="grid gap-5 md:grid-cols-2">
+          <div>
+            <label class="block text-small text-text-primary" for="company">
+              Company
+            </label>
+            <input
+              class="mt-2 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+              id="company"
+              name="company"
+              type="text"
+              autocomplete="organization"
+            />
+          </div>
+          <div>
+            <label class="block text-small text-text-primary" for="role">
+              Role or title
+            </label>
+            <input
+              class="mt-2 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+              id="role"
+              name="role"
+              type="text"
+              autocomplete="organization-title"
+            />
+          </div>
+        </div>
+        <div>
+          <label class="block text-small text-text-primary" for="inquiryType">
+            What are you looking for?
+          </label>
+          <select
+            class="mt-2 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+            id="inquiryType"
+            name="inquiryType"
+            aria-describedby="inquiryType-error"
+            required
+          >
+            <option value="">Choose one</option>
+            <option value="Discovery call">Discovery call</option>
+            <option value="General inquiry">General inquiry</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Press">Press</option>
+          </select>
+          <p
+            class="mt-2 text-small text-status-amber"
+            id="inquiryType-error"
+            data-error-for="inquiryType"
+          />
+        </div>
+        <div>
+          <label class="block text-small text-text-primary" for="message">
+            Message
+          </label>
+          <textarea
+            class="mt-2 min-h-36 w-full rounded-md border border-northlace-900/20 bg-surface-warm px-4 py-3 text-body"
+            id="message"
+            name="message"
+            aria-describedby="message-error"
+            required
+          />
+          <p
+            class="mt-2 text-small text-status-amber"
+            id="message-error"
+            data-error-for="message"
+          />
+        </div>
+      </>
+    )
+  }
+
+  <button
+    class="rounded-md bg-northlace-700 px-5 py-3 text-body text-text-on-dark hover:bg-northlace-900"
+    type="submit"
+  >
+    {isApply ? "Send application" : "Send message"}
+  </button>
+  <p
+    class="text-small text-northlace-700"
+    data-form-status
+    role="status"
+    aria-live="polite"
+  >
+  </p>
+  <p class="text-small text-text-primary">
+    No JavaScript? Email <a
+      class="text-northlace-700 underline"
+      href="mailto:hello@northlace.example">hello@northlace.example</a
+    >.
+  </p>
+</form>
+
+<script>
+  import "../scripts/forms";
+</script>

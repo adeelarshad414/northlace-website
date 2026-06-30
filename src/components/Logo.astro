@@ -1,0 +1,36 @@
+---
+interface Props {
+  variant?: "dark" | "light";
+}
+
+const { variant = "light" } = Astro.props;
+const isDark = variant === "dark";
+const markPrimary = isDark ? "text-northlace-400" : "text-northlace-900";
+const markSecondary = isDark ? "text-northlace-100" : "text-northlace-900";
+const wordmark = isDark ? "text-text-on-dark" : "text-text-primary";
+---
+
+<a class="inline-flex items-center gap-3" href="/" aria-label="Northlace home">
+  <svg
+    class:list={["h-9 w-9", markPrimary]}
+    viewBox="0 0 64 64"
+    aria-hidden="true"
+  >
+    <circle
+      cx="32"
+      cy="32"
+      r="26"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="5"></circle>
+    <path
+      class={markSecondary}
+      d="M10 32h44M15 17c13 5 25 25 34 34M49 17C36 22 24 42 15 51"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-width="3.75"></path>
+    <circle cx="32" cy="32" r="3.5" fill="currentColor"></circle>
+  </svg>
+  <span class:list={["text-h3", wordmark]}>Northlace</span>
+</a>

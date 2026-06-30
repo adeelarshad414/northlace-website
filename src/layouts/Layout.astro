@@ -1,0 +1,56 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { buildPageMeta } from "../lib/seo";
+import "../styles/global.css";
+
+interface Props {
+  canonicalPath?: string;
+  description: string;
+  ogImage?: string;
+  title: string;
+}
+
+const {
+  canonicalPath = Astro.url.pathname,
+  description,
+  ogImage = "/favicon.svg",
+  title,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const meta = buildPageMeta({
+  canonicalPath,
+  description,
+  ogImage,
+  siteUrl,
+  title,
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={meta.canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={meta.canonicalUrl} />
+    <meta property="og:image" content={meta.ogImageUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+  </head>
+  <body>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

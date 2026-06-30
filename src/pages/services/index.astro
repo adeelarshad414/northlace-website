@@ -1,0 +1,48 @@
+---
+import CTABanner from "../../components/CTABanner.astro";
+import Layout from "../../layouts/Layout.astro";
+import { servicePillars } from "../../data/services";
+---
+
+<Layout
+  title="Services | Northlace"
+  description="Northlace services across cloud operations, security, cost, and modernization."
+  canonicalPath="/services"
+>
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <h1 class="text-h1 text-northlace-900">Services</h1>
+    <p class="mt-5 max-w-3xl text-body">
+      Northlace organizes cloud work into four practical pillars. First we make
+      the work understandable, then we connect operating depth, risk, cost, and
+      modernization into one standard.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl space-y-8 px-6 pb-16 md:pb-24">
+    {
+      servicePillars.map((pillar) => (
+        <article class="rounded-lg border border-northlace-900/10 p-6">
+          <h2 class="text-h2 text-northlace-900">{pillar.name}</h2>
+          <p class="mt-4 text-body">{pillar.description}</p>
+          <ul class="mt-5 space-y-2 text-body">
+            {pillar.covers.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <a
+            class="mt-5 inline-flex text-small text-northlace-700 underline"
+            href={pillar.href}
+          >
+            See {pillar.shortName} in detail
+          </a>
+        </article>
+      ))
+    }
+  </section>
+
+  <CTABanner
+    heading="Want one standard across your cloud work?"
+    buttonText="Book a discovery call"
+    buttonHref="/contact"
+  />
+</Layout>

@@ -1,0 +1,28 @@
+---
+title: "Accessible shared chrome"
+clientLabel: "Northlace internal design system"
+anonymized: false
+summary: "How Northlace built shared navigation, layout, and calls to action with accessibility checks from the start."
+pillars:
+  - shield
+  - run
+featured: true
+publishDate: 2026-06-30
+heroMetric:
+  value: "0"
+  label: "Critical or serious axe violations"
+challenge: "The site needed shared navigation and layout primitives that could carry many pages without introducing keyboard or metadata regressions."
+approach: "Northlace implemented a reusable logo, header, footer, call-to-action banner, layout metadata helper, and mobile menu behavior with focused tests."
+outcomeMetrics:
+  - value: "0"
+    label: "Critical or serious axe violations in the sampled layout scan"
+  - value: "2"
+    label: "Layout metadata prop sets covered by tests"
+seo:
+  title: "Accessible Shared Chrome"
+  description: "How Northlace built shared navigation and layout primitives with accessibility checks."
+---
+
+Shared chrome is easy to underestimate because it appears on every page. This
+work made the header, footer, metadata, and mobile navigation testable before
+the rest of the site grew around them.

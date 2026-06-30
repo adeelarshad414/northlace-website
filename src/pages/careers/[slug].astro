@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+
+import ContactForm from "../../components/ContactForm.astro";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/dates";
+import { isRoleClosed } from "../../lib/filters";
+
+export const getStaticPaths = async () => {
+  const entries = (await getCollection("careers")).filter(
+    (entry) => !entry.data.draft,
+  );
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+};
+
+const { entry } = Astro.props;
+const closed = isRoleClosed(entry.data.closesDate);
+---
+
+<Layout
+  title={`${entry.data.title} | Northlace Careers`}
+  description={entry.data.summary}
+  canonicalPath={`/careers/${entry.id}`}
+>
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    {
+      closed && (
+        <p class="mb-6 rounded-md bg-northlace-50 p-4 text-body text-northlace-700">
+          This role is now closed.
+        </p>
+      )
+    }
+    <h1 class="text-h1 text-northlace-900">{entry.data.title}</h1>
+    <p class="mt-4 text-small text-northlace-700">
+      {entry.data.department} / {entry.data.locationType} / {
+        entry.data.employmentType
+      }
+    </p>
+    <p class="mt-2 text-small">Posted {formatDate(entry.data.postedDate)}</p>
+  </section>
+
+  <section
+    class="mx-auto grid max-w-6xl gap-10 px-6 pb-16 md:grid-cols-[1fr_1fr] md:pb-24"
+  >
+    <div>
+      <h2 class="text-h2 text-northlace-900">About the role</h2>
+      <ul class="mt-5 space-y-3 text-body">
+        {entry.data.responsibilities.map((item) => <li>{item}</li>)}
+      </ul>
+      <h2 class="mt-10 text-h2 text-northlace-900">Requirements</h2>
+      <h3 class="mt-5 text-h3 text-northlace-900">Must have</h3>
+      <ul class="mt-3 space-y-3 text-body">
+        {entry.data.mustHave.map((item) => <li>{item}</li>)}
+      </ul>
+      {
+        entry.data.niceToHave && (
+          <>
+            <h3 class="mt-5 text-h3 text-northlace-900">Nice to have</h3>
+            <ul class="mt-3 space-y-3 text-body">
+              {entry.data.niceToHave.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+    </div>
+    <div>
+      <h2 class="text-h2 text-northlace-900">Apply</h2>
+      <div class="mt-6">
+        <ContactForm
+          context="apply"
+          roleSlug={entry.id}
+          roleTitle={entry.data.title}
+        />
+      </div>
+    </div>
+  </section>
+</Layout>

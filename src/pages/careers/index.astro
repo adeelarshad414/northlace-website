@@ -1,0 +1,113 @@
+---
+import { getCollection } from "astro:content";
+
+import Layout from "../../layouts/Layout.astro";
+import { activeRoles } from "../../lib/filters";
+
+const roles = activeRoles(
+  (await getCollection("careers"))
+    .filter((entry) => !entry.data.draft)
+    .map((entry) => ({ ...entry.data, id: entry.id })),
+);
+const departments = Array.from(new Set(roles.map((role) => role.department)));
+const locations = Array.from(new Set(roles.map((role) => role.locationType)));
+---
+
+<Layout
+  title="Careers | Northlace"
+  description="Careers and talent network roles at Northlace."
+  canonicalPath="/careers"
+>
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <h1 class="text-h1 text-northlace-900">Careers</h1>
+    <p class="mt-5 max-w-3xl text-body">
+      Life at Northlace is built around serious engineering, clear
+      communication, and global collaboration. Location details belong in each
+      role, not in assumptions about where good work happens.
+    </p>
+  </section>
+
+  <section
+    class="bg-northlace-50 py-16 md:py-24"
+    aria-labelledby="why-northlace"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="why-northlace" class="text-h2 text-northlace-900">
+        Why Northlace
+      </h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-4">
+        {
+          [
+            "Work on production cloud problems with clear ownership.",
+            "Grow through certifications, mentoring, and written operating standards.",
+            "Build reusable patterns instead of one-off fixes.",
+            "Communicate clearly with technical and business stakeholders.",
+          ].map((item) => (
+            <article class="rounded-lg border border-northlace-900/10 bg-surface-warm p-5">
+              <p class="text-body">{item}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-6xl px-6 py-16 md:py-24"
+    aria-labelledby="open-roles"
+  >
+    <h2 id="open-roles" class="text-h2 text-northlace-900">Open roles list</h2>
+    <div
+      class="mt-8 flex flex-wrap gap-3"
+      data-filter-group
+      data-filter-items="[data-role-card]"
+      data-empty-state="#role-empty"
+    >
+      <button
+        class="rounded-md border border-northlace-700 px-4 py-2 text-small text-northlace-700 data-[state=active]:bg-northlace-700 data-[state=active]:text-text-on-dark"
+        type="button"
+        data-filter-value="all">All</button
+      >
+      {
+        [...departments, ...locations].map((filter) => (
+          <button
+            class="rounded-md border border-northlace-700 px-4 py-2 text-small text-northlace-700 data-[state=active]:bg-northlace-700 data-[state=active]:text-text-on-dark"
+            type="button"
+            data-filter-value={filter}
+          >
+            {filter}
+          </button>
+        ))
+      }
+    </div>
+    <p id="role-empty" class="mt-8 text-body" hidden>
+      No open roles right now. Send us your resume anyway.
+    </p>
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      {
+        roles.map((role) => (
+          <article
+            class="rounded-lg border border-northlace-900/10 p-6"
+            data-role-card
+            data-filter-keys={`${role.department} ${role.locationType}`}
+          >
+            <h3 class="text-h3 text-northlace-900">{role.title}</h3>
+            <p class="mt-2 text-small text-northlace-700">
+              {role.department} / {role.locationType} / {role.employmentType}
+            </p>
+            <p class="mt-4 text-body">{role.summary}</p>
+            <a
+              class="mt-5 inline-flex text-small text-northlace-700 underline"
+              href={`/careers/${role.id}`}
+            >
+              View role
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <script>
+    import "../../scripts/content-filters";
+  </script>
+</Layout>

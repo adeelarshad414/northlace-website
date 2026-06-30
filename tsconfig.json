@@ -1,0 +1,14 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["vitest/globals"]
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "functions/**/*",
+    "src/**/*",
+    "tests/**/*",
+    "*.config.*"
+  ]
+}
