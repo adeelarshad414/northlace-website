@@ -42,17 +42,17 @@ Base dependency: `feat/brand-kits-and-pages`, because this run reads Northlace b
 
 ## Gate Table
 
-| Gate                                  | Status                    | Evidence                                                                                             |
-| ------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Offer framework present               | Passed                    | `npm run test` -> 15 files, 71 tests passed; `tests/unit/sales-deck-outputs.test.ts` checks the PPTX |
-| Source fidelity 24/24 map             | Passed                    | `npm run test` -> `tests/unit/sales-deck-content-map.test.ts`                                        |
-| Theme purity                          | Passed in build script    | `work/deck-qa/theme-and-offer-audit.json` -> no banned source colors                                 |
-| No invented facts                     | Passed by marker strategy | Pricing, ICP, guarantees, and proof points remain explicitly marked for human confirmation           |
-| Reproducibility                       | Passed                    | `npm run brand:build`, then approved `npm run deck:build`, regenerated PPTX/PDF/previews/manifest    |
-| Serving 2/2 files                     | Passed                    | `npm run test:e2e` -> 15 passed; deck PPTX/PDF return 200 with MIME policy                           |
-| Resource page axe                     | Passed                    | `npm run test:a11y` -> 29 passed, including `/resources/modernization-deck`                          |
-| Resource page Lighthouse 95/95/95/100 | Passed                    | `npm run lhci:resources` -> 0.99 / 1.00 / 1.00 / 1.00                                                |
-| PR open and CI green                  | Pending                   | Run after local verification, commit, push, and PR creation                                          |
+| Gate                                  | Status                    | Evidence                                                                                              |
+| ------------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Offer framework present               | Passed                    | `npm run test` -> 15 files, 71 tests passed; `tests/unit/sales-deck-outputs.test.ts` checks the PPTX  |
+| Source fidelity 24/24 map             | Passed                    | `npm run test` -> `tests/unit/sales-deck-content-map.test.ts`                                         |
+| Theme purity                          | Passed in build script    | `work/deck-qa/theme-and-offer-audit.json` -> no banned source colors                                  |
+| No invented facts                     | Passed by marker strategy | Pricing, ICP, guarantees, and proof points remain explicitly marked for human confirmation            |
+| Reproducibility                       | Passed                    | `npm run brand:build`, then approved `npm run deck:build`, regenerated PPTX/PDF/previews/manifest     |
+| Serving 2/2 files                     | Passed                    | `npm run test:e2e` -> 15 passed; deck PPTX/PDF return 200 with MIME policy                            |
+| Resource page axe                     | Passed                    | `npm run test:a11y` -> 29 passed, including `/resources/modernization-deck`                           |
+| Resource page Lighthouse 95/95/95/100 | Passed                    | `npm run lhci:resources` -> 0.99 / 1.00 / 1.00 / 1.00                                                 |
+| PR open and CI green                  | Passed                    | PR #3 opened: https://github.com/adeelarshad414/northlace-website/pull/3; CI `Verify` passed in 4m32s |
 
 ## TODO Inventory
 
