@@ -5,6 +5,7 @@ coverage/
 playwright-report/
 test-results/
 .lighthouseci/
+.lighthouseci-brand/
 work/
 .env
 .DS_Store

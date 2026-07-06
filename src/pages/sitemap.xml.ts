@@ -1,6 +1,7 @@
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
 
+import { brands } from "../data/brands";
 import { servicePillars } from "../data/services";
 
 const staticPaths = [
@@ -13,6 +14,7 @@ const staticPaths = [
   "/contact",
   "/privacy",
   "/terms",
+  "/brand",
 ];
 
 const escapeXml = (value: string) =>
@@ -31,6 +33,7 @@ export const GET: APIRoute = async ({ site }) => {
   ]);
   const dynamicPaths = [
     ...servicePillars.map((pillar) => pillar.href),
+    ...brands.map((brand) => `/brand/${brand.slug}`),
     ...caseStudies
       .filter((entry) => !entry.data.draft)
       .map((entry) => `/case-studies/${entry.id}`),

@@ -1,0 +1,74 @@
+---
+import type { Brand } from "../data/brands";
+
+interface ManifestFile {
+  bytes: number;
+  mime: string;
+  path: string;
+  sha256: string;
+}
+
+interface Props {
+  brand: Brand;
+  files: ManifestFile[];
+}
+
+const { brand, files } = Astro.props;
+
+const fileKind = (file: ManifestFile) => {
+  if (file.mime.includes("svg")) return "SVG";
+  if (file.mime.includes("pdf")) return "PDF";
+  if (file.mime.includes("presentation")) return "PPTX";
+  if (file.mime.includes("png")) return "PNG";
+  return "FILE";
+};
+
+const fileLabel = (file: ManifestFile) => {
+  if (file.path.endsWith("icon-transparent.svg")) return "transparent icon";
+  if (file.path.endsWith("mark-dark.svg")) return "dark mark";
+  if (file.path.endsWith("mark-light.svg")) return "light mark";
+  if (file.path.endsWith("lockup-horizontal-dark.svg")) return "dark lockup";
+  if (file.path.endsWith("lockup-horizontal-light.svg")) return "light lockup";
+  if (file.path.endsWith("brand-guidelines.pdf")) return "brand guidelines";
+  if (file.path.endsWith("deck-template.pptx")) return "deck template";
+  if (file.path.endsWith("og.png")) return "Open Graph image";
+  return file.path.split("/").at(-1) ?? "asset";
+};
+
+const humanSize = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  const kb = bytes / 1024;
+  if (kb < 1024) return `${Math.round(kb)} KB`;
+  return `${(kb / 1024).toFixed(1)} MB`;
+};
+---
+
+<div class="grid gap-4 md:grid-cols-2">
+  {
+    files.map((file) => {
+      const kind = fileKind(file);
+      const label = fileLabel(file);
+      return (
+        <a
+          class="group rounded-lg border border-northlace-900/10 bg-surface-warm p-4 transition hover:border-northlace-700"
+          href={file.path}
+          download
+          aria-label={`Download ${brand.name} ${label}, ${kind}, ${humanSize(
+            file.bytes,
+          )}`}
+        >
+          <span class="inline-flex rounded-md bg-northlace-50 px-2 py-1 text-small text-northlace-700">
+            {kind}
+          </span>
+          <span class="mt-3 block text-h3 text-northlace-900">{label}</span>
+          <span class="mt-2 block text-small text-northlace-700">
+            {humanSize(file.bytes)}
+          </span>
+          <span class="mt-2 block break-all text-small text-northlace-700">
+            sha256 {file.sha256.slice(0, 12)}
+          </span>
+        </a>
+      );
+    })
+  }
+</div>

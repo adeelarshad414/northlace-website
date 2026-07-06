@@ -30,6 +30,15 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Install brand generator dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          python3 -m pip install reportlab
+
+      - name: Generate brand kits
+        run: npm run brand:build
+
       - name: Lint
         run: npm run lint
 
@@ -68,3 +77,6 @@ jobs:
 
       - name: Lighthouse CI
         run: npm run lhci
+
+      - name: Brand Lighthouse CI
+        run: npm run lhci:brand

@@ -1,0 +1,103 @@
+---
+import BrandKitDownloads from "../../components/BrandKitDownloads.astro";
+import Layout from "../../layouts/Layout.astro";
+import { brands } from "../../data/brands";
+import manifest from "../../../public/brand/manifest.json";
+import { buildBreadcrumbJsonLd } from "../../lib/seo";
+
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+---
+
+<Layout
+  title="Brand Systems | Northlace"
+  description="Download the Northlace, Adeel Codes Cloud, Signal & Scale, and The Cloud Lounge brand kits."
+  canonicalPath="/brand"
+  ogImage="/brand/northlace/northlace-og.png"
+  structuredData={buildBreadcrumbJsonLd(siteUrl, [
+    { name: "Home", path: "/" },
+    { name: "Brand systems", path: "/brand" },
+  ])}
+>
+  <section class="bg-northlace-900 py-16 text-text-on-dark md:py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <p class="text-small text-northlace-100">Brand systems</p>
+      <h1 class="mt-4 max-w-4xl text-h1">Published systems, not loose files</h1>
+      <p class="mt-5 max-w-3xl text-body text-northlace-100">
+        We publish our brand systems so each logo, deck, guideline, and social
+        preview can be traced back to one source of truth and regenerated when
+        the system changes.
+      </p>
+      <a
+        class="mt-8 inline-flex rounded-md bg-northlace-700 px-5 py-3 text-body text-text-on-dark hover:bg-northlace-400 hover:text-northlace-900"
+        href="#all-kits"
+      >
+        Download all kits
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        brands.map((brand) => (
+          <article
+            class="rounded-lg border border-northlace-900/10 p-6"
+            style={`background:${brand.primaryLight}; color:${brand.primaryDark}`}
+          >
+            <img
+              src={brand.assets.markLight}
+              alt={`${brand.name} mark`}
+              class="h-24 w-24"
+              loading="lazy"
+            />
+            <p class="mt-5 text-small">{brand.kind}</p>
+            <h2 class="mt-2 text-h2">{brand.name}</h2>
+            <p class="mt-3 text-body">{brand.tagline}</p>
+            <a
+              class="mt-5 inline-flex text-small underline"
+              href={`/brand/${brand.slug}`}
+            >
+              Open {brand.name} guidelines
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section
+    id="all-kits"
+    class="bg-northlace-50 py-16 md:py-24"
+    aria-labelledby="all-kits-heading"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="all-kits-heading" class="text-h2 text-northlace-900">
+        Download all kits
+      </h2>
+      <p class="mt-4 max-w-3xl text-body">
+        The kits are listed by brand rather than zipped, so each file keeps its
+        readable URL, MIME type, and manifest hash.
+      </p>
+      <div class="mt-10 grid gap-10 lg:grid-cols-2">
+        {
+          brands.map((brand) => (
+            <section aria-labelledby={`${brand.slug}-downloads`}>
+              <h3
+                id={`${brand.slug}-downloads`}
+                class="text-h3 text-northlace-900"
+              >
+                {brand.name}
+              </h3>
+              <div class="mt-4">
+                <BrandKitDownloads
+                  brand={brand}
+                  files={manifest.brands[brand.slug].files}
+                />
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

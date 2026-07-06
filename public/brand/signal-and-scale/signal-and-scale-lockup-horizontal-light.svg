@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="400" viewBox="0 0 1400 400" role="img" aria-labelledby="signal-and-scale-lockup-light-title"><title id="signal-and-scale-lockup-light-title">Signal &amp; Scale lockup light</title>
+    <rect width="1400" height="400" rx="48" fill="#F4F6F7"/>
+    <g transform="translate(58 48) scale(0.76)">
+        <path d="M54 218 88 136l34 160 42-198 44 178 42-122" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#6B7280" stroke-width="17"/>
+        <path d="M250 154c30 56 56 86 88 90 16 1 29-4 42-18" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#14171C" stroke-width="17"/>
+        <circle cx="380" cy="226" r="14" fill="#14171C"/></g>
+    <text x="390" y="178" fill="#14171C" font-family="Inter, Geist, Sora, Space Grotesk, Poppins, Arial, sans-serif" font-size="78" font-weight="500" letter-spacing="3">SIGNAL &amp; SCALE</text>
+    <text x="394" y="246" fill="#14171C" font-family="Inter, Geist, Sora, Space Grotesk, Poppins, Arial, sans-serif" font-size="34" font-weight="400">Cutting the noise on cloud, careers, and AI-native work.</text></svg>
