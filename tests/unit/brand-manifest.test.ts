@@ -31,6 +31,12 @@ const expectedFiles = (slug: string) => [
   `/brand/${slug}/${slug}-lockup-horizontal-light.svg`,
   `/brand/${slug}/${slug}-brand-guidelines.pdf`,
   `/brand/${slug}/${slug}-deck-template.pptx`,
+  ...(slug === "northlace"
+    ? [
+        "/brand/northlace/northlace-modernization-sales-deck.pptx",
+        "/brand/northlace/northlace-modernization-sales-deck.pdf",
+      ]
+    : []),
   `/brand/${slug}/${slug}-og.png`,
 ];
 
@@ -52,14 +58,14 @@ const walk = (dir: string): string[] =>
   });
 
 describe("brand manifest", () => {
-  it("lists 32 kit files plus the manifest file under public/brand", () => {
+  it("lists 34 kit files plus the manifest file under public/brand", () => {
     expect(Object.keys(manifest.brands).sort()).toEqual(
       brands.map((brand) => brand.slug).sort(),
     );
     expect(
       Object.values(manifest.brands).flatMap((brand) => brand.files),
-    ).toHaveLength(32);
-    expect(walk(path.join(publicDir, "brand"))).toHaveLength(33);
+    ).toHaveLength(34);
+    expect(walk(path.join(publicDir, "brand"))).toHaveLength(35);
   });
 
   it("matches every generated file's path, byte size, MIME type, and sha256", () => {

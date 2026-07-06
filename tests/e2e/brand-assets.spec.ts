@@ -40,7 +40,7 @@ const configuredContentType = (filePath: string) => {
 test("brand kit files return 200 with expected MIME policy", async ({
   request,
 }) => {
-  expect(files).toHaveLength(33);
+  expect(files).toHaveLength(35);
 
   for (const file of files) {
     const response = await request.get(file.path);
@@ -66,7 +66,7 @@ test("brand hub links to every brand page and exposes manifest-backed downloads"
     ).toBeVisible();
     await expect(
       page.locator(`a[download][href^="/brand/${slug}/"]`),
-    ).toHaveCount(8);
+    ).toHaveCount(slug === "northlace" ? 10 : 8);
   }
 });
 

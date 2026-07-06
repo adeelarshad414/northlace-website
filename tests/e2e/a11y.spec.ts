@@ -8,6 +8,7 @@ const routes = [
   "/services/shield",
   "/services/ledger",
   "/services/shift",
+  "/resources/modernization-deck",
   "/case-studies",
   "/case-studies/spec-driven-website-foundation",
   "/case-studies/content-system-launch",
