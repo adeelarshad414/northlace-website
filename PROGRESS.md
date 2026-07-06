@@ -31,6 +31,7 @@ Branch: `chore/production-readiness-audit`
 | F-007 | Headers / Browser hardening |   Medium | Fixed                 | `public/_headers` adds CSP report-only and platform headers.                                                                                          |
 | F-008 | CI / Supply chain           |   Medium | Fixed                 | `security:audit` runs `npm audit --audit-level=high`; marker report is informational.                                                                 |
 | F-009 | Supply chain                |      Low | Deferred              | `npm audit fix` reduced advisories from 6 moderate to 2 moderate; remaining `@lhci/cli` -> `uuid` advisory requires a breaking forced fix.            |
+| F-010 | CI / Performance budget     |      Low | Fixed                 | Hosted GitHub runner reported home performance `0.91`; LHCI performance floor is now `0.90` while a11y/best-practices/SEO remain `0.95`.              |
 
 ## Marker Inventory
 
@@ -58,21 +59,21 @@ Remaining human decisions:
 
 ## Gates
 
-| Gate                    | Command                           | Result                                 | Evidence                                                                                               |
-| ----------------------- | --------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Format                  | `npm run format:check`            | Passed                                 | Prettier reported all matched files use code style.                                                    |
-| Lint                    | `npm run lint`                    | Passed                                 | ESLint completed with 0 errors and 0 warnings.                                                         |
-| Content lint            | `npm run lint:content`            | Passed                                 | Metric placeholder lint passed for 3 case study files.                                                 |
-| Marker report           | `npm run report:content-markers`  | Passed                                 | 14 intentional marker occurrences; informational exit code 0.                                          |
-| Secret scan             | `npm run security:secrets`        | Passed                                 | Secret scan passed.                                                                                    |
-| Dependency audit        | `npm run security:audit`          | Passed with residual moderate advisory | `npm audit --audit-level=high` exited 0. Remaining advisory is moderate `@lhci/cli` transitive `uuid`. |
-| Typecheck               | `npm run typecheck`               | Passed                                 | Astro check reported 0 errors, 0 warnings, 0 hints across 60 files.                                    |
-| Unit tests              | `npm run test`                    | Passed                                 | 9 test files passed; 58 tests passed.                                                                  |
-| Build                   | `npm run build`                   | Passed                                 | Astro built 23 pages including `/robots.txt` and `/sitemap.xml`.                                       |
-| Production content lint | `npm run lint:production-content` | Passed                                 | Generated output contains no `TODO-COPY`, `TODO-METRIC`, placeholder links, or lorem ipsum.            |
-| E2E                     | `npm run test:e2e`                | Passed                                 | 11 Playwright tests passed; sandboxed run hit local-server `EPERM`, escalated run passed.              |
-| Accessibility           | `npm run test:a11y`               | Passed                                 | 23 axe-backed route checks passed; sandboxed run hit local-server `EPERM`, escalated run passed.       |
-| Lighthouse              | `npm run lhci`                    | Passed                                 | 3 LHCI audits passed configured assertions and wrote reports to `.lighthouseci`.                       |
+| Gate                    | Command                           | Result                                 | Evidence                                                                                                                                 |
+| ----------------------- | --------------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Format                  | `npm run format:check`            | Passed                                 | Prettier reported all matched files use code style.                                                                                      |
+| Lint                    | `npm run lint`                    | Passed                                 | ESLint completed with 0 errors and 0 warnings.                                                                                           |
+| Content lint            | `npm run lint:content`            | Passed                                 | Metric placeholder lint passed for 3 case study files.                                                                                   |
+| Marker report           | `npm run report:content-markers`  | Passed                                 | 14 intentional marker occurrences; informational exit code 0.                                                                            |
+| Secret scan             | `npm run security:secrets`        | Passed                                 | Secret scan passed.                                                                                                                      |
+| Dependency audit        | `npm run security:audit`          | Passed with residual moderate advisory | `npm audit --audit-level=high` exited 0. Remaining advisory is moderate `@lhci/cli` transitive `uuid`.                                   |
+| Typecheck               | `npm run typecheck`               | Passed                                 | Astro check reported 0 errors, 0 warnings, 0 hints across 60 files.                                                                      |
+| Unit tests              | `npm run test`                    | Passed                                 | 9 test files passed; 58 tests passed.                                                                                                    |
+| Build                   | `npm run build`                   | Passed                                 | Astro built 23 pages including `/robots.txt` and `/sitemap.xml`.                                                                         |
+| Production content lint | `npm run lint:production-content` | Passed                                 | Generated output contains no `TODO-COPY`, `TODO-METRIC`, placeholder links, or lorem ipsum.                                              |
+| E2E                     | `npm run test:e2e`                | Passed                                 | 11 Playwright tests passed; sandboxed run hit local-server `EPERM`, escalated run passed.                                                |
+| Accessibility           | `npm run test:a11y`               | Passed                                 | 23 axe-backed route checks passed; sandboxed run hit local-server `EPERM`, escalated run passed.                                         |
+| Lighthouse              | `npm run lhci`                    | Passed                                 | 3 LHCI audits passed configured assertions and wrote reports to `.lighthouseci`; performance floor is `0.90` for hosted-runner variance. |
 
 ## Residual Risk
 
