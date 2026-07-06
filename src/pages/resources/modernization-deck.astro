@@ -1,0 +1,196 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getBrand } from "../../data/brands";
+import { buildBreadcrumbJsonLd } from "../../lib/seo";
+import manifest from "../../../public/brand/manifest.json";
+
+const brand = getBrand("northlace");
+if (!brand) throw new Error("Northlace brand was not found");
+
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const deckFiles = manifest.brands.northlace.files.filter((file) =>
+  [
+    "/brand/northlace/northlace-modernization-sales-deck.pptx",
+    "/brand/northlace/northlace-modernization-sales-deck.pdf",
+  ].includes(file.path),
+);
+const formatBytes = (bytes: number) => {
+  const mb = bytes / 1024 / 1024;
+  return `${mb.toFixed(mb >= 10 ? 0 : 1)} MB`;
+};
+const downloadLabel = (path: string) =>
+  path.endsWith(".pptx") ? "PowerPoint deck" : "PDF deck";
+const previewImages = [1, 2, 3, 4].map((number) => ({
+  alt: `Northlace modernization sales deck preview slide ${number}`,
+  src: `/resources/modernization-deck/preview-${String(number).padStart(
+    2,
+    "0",
+  )}.png`,
+}));
+const documentJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Report", "DigitalDocument"],
+  about: [
+    "Application modernization",
+    "Cloud operations",
+    "DevOps",
+    "Security",
+    "FinOps",
+  ],
+  description:
+    "Northlace modernization sales deck covering the 3S niche, Northlace Standard mechanism, 90-day pilot, service pillars, fulfillment path, proof points, ROI model, and pricing ladder.",
+  encoding: deckFiles.map((file) => ({
+    "@type": "MediaObject",
+    contentUrl: new URL(file.path, siteUrl).toString(),
+    encodingFormat: file.mime,
+    fileSize: String(file.bytes),
+    name: downloadLabel(file.path),
+  })),
+  name: "Northlace Modernization Sales Deck",
+  publisher: {
+    "@type": "Organization",
+    name: "Northlace",
+  },
+  url: new URL("/resources/modernization-deck", siteUrl).toString(),
+};
+---
+
+<Layout
+  title="Northlace Modernization Sales Deck | Resources"
+  description="Download the Northlace modernization sales deck for cloud, DevOps, security, FinOps, and application modernization leadership conversations."
+  canonicalPath="/resources/modernization-deck"
+  ogImage="/og/northlace-modernization-deck.png"
+  structuredData={[
+    buildBreadcrumbJsonLd(siteUrl, [
+      { name: "Home", path: "/" },
+      { name: "Services", path: "/services" },
+      {
+        name: "Modernization sales deck",
+        path: "/resources/modernization-deck",
+      },
+    ]),
+    documentJsonLd,
+  ]}
+>
+  <section class="bg-northlace-900 py-16 text-text-on-dark md:py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <img src={brand.assets.lockupDark} alt="Northlace" class="h-auto w-56" />
+      <h1 class="mt-12 max-w-4xl text-h1">
+        Northlace Modernization Sales Deck
+      </h1>
+      <p class="mt-5 max-w-3xl text-body text-northlace-100">
+        A leadership-ready deck for framing cloud modernization as one operating
+        standard across delivery, security, cost, and modernization waves.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {
+          deckFiles.map((file) => (
+            <a
+              class="inline-flex rounded-md bg-northlace-300 px-5 py-3 text-small font-medium text-northlace-900"
+              href={file.path}
+              download
+              aria-label={`Download Northlace modernization sales deck as ${downloadLabel(
+                file.path,
+              )}, ${formatBytes(file.bytes)}`}
+            >
+              Download {downloadLabel(file.path)} ({formatBytes(file.bytes)})
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div class="grid gap-10 md:grid-cols-[0.95fr_1.05fr]">
+      <div>
+        <h2 class="text-h2 text-northlace-900">What the deck covers</h2>
+        <p class="mt-5 text-body">
+          The deck introduces the Northlace Standard, the 90-day pilot, Run,
+          Shield, Ledger, and Shift, the fulfillment path from assessment to
+          scale, deliverable packs, representative proof points, an illustrative
+          ROI model, and a clear pricing ladder.
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <article
+          class="rounded-lg border border-northlace-900/10 bg-northlace-50 p-5"
+        >
+          <h3 class="text-h3 text-northlace-900">Specific Person</h3>
+          <p class="mt-3 text-small">
+            CTOs, VPs Engineering, platform leads, and cloud operations owners
+            at growth-stage and mid-market companies on AWS, Azure, GCP, IBM
+            Cloud, and hybrid estates.
+          </p>
+        </article>
+        <article
+          class="rounded-lg border border-northlace-900/10 bg-northlace-50 p-5"
+        >
+          <h3 class="text-h3 text-northlace-900">Specific Problem</h3>
+          <p class="mt-3 text-small">
+            Cloud spend lacks ownership, releases feel risky, environments are
+            fragile, and security exposure remains unresolved.
+          </p>
+        </article>
+        <article
+          class="rounded-lg border border-northlace-900/10 bg-northlace-50 p-5"
+        >
+          <h3 class="text-h3 text-northlace-900">Specific Way</h3>
+          <p class="mt-3 text-small">
+            Run, Shield, Ledger, and Shift move through assessment, pilot,
+            scale, and KPI governance as one operating model.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-northlace-50 py-16 md:py-24" aria-labelledby="preview">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="preview" class="text-h2 text-northlace-900">Preview</h2>
+      <div class="mt-8 grid gap-5 md:grid-cols-2">
+        {
+          previewImages.map((image, index) => (
+            <figure class="rounded-lg border border-northlace-900/10 bg-surface-warm p-3">
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="w-full rounded-md"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <h2 class="text-h2 text-northlace-900">Downloads</h2>
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      {
+        deckFiles.map((file) => (
+          <article class="rounded-lg border border-northlace-900/10 p-6">
+            <h3 class="text-h3 text-northlace-900">
+              {downloadLabel(file.path)}
+            </h3>
+            <p class="mt-3 break-all text-body">
+              {file.mime}
+              <br />
+              {formatBytes(file.bytes)} / sha256 {file.sha256.slice(0, 12)}...
+            </p>
+            <a
+              class="mt-5 inline-flex rounded-md bg-northlace-900 px-5 py-3 text-small font-medium text-text-on-dark"
+              href={file.path}
+              download
+              aria-label={`Download ${downloadLabel(file.path)} for the Northlace modernization sales deck`}
+            >
+              Download {downloadLabel(file.path)}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

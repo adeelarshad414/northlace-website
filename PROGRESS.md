@@ -1,82 +1,85 @@
-# Brand Asset Generation & Publication Progress
+# Northlace Sales Deck Rebrand & Publication Progress
 
-Run date: 2026-07-06  
-Branch: `feat/brand-kits-and-pages`
+Run date: 2026-07-06
+Branch: `feat/sales-deck-rebrand`
+Base dependency: `feat/brand-kits-and-pages`, because this run reads Northlace brand values and logo assets from that branch.
 
 ## Step 0 Inventory
 
-| Surface / toolchain         | Initial classification                    | Action in this branch                                                                                                                                                           | Evidence                                                                                                                                                                                             |
-| --------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blog collection + templates | Implemented                               | Three personal-brand launch posts existed; Northlace launch post did not. Wired the three existing posts to brand pages and created one announcement post for all four systems. | `src/content/blog/adeel-codes-cloud-launch.mdx`, `src/content/blog/signal-and-scale-launch.mdx`, `src/content/blog/the-cloud-lounge-launch.mdx`, `src/content/blog/publishing-our-brand-systems.mdx` |
-| Shared components           | Implemented, missing brand kit components | Added manifest-backed download cards and accessible palette copy controls.                                                                                                      | `src/components/BrandKitDownloads.astro`, `src/components/BrandPalette.astro`, `src/scripts/brand-palette.ts`                                                                                        |
-| `public/brand/` tree        | Not yet built                             | Generated 4 folders plus manifest: 32 kit files + `manifest.json`.                                                                                                              | `public/brand/manifest.json`; `find public/brand -type f` -> 33                                                                                                                                      |
-| Existing brand assets       | Not present in repo                       | Generated all four kits from `src/data/brands.ts`; no pre-existing real assets were superseded.                                                                                 | `src/data/brands.ts`, `scripts/brand/build.mjs`                                                                                                                                                      |
-| OG image pipeline           | Not yet built for brands                  | Generated one 1200x630 PNG per brand.                                                                                                                                           | `public/brand/*/*-og.png`                                                                                                                                                                            |
-| Brand web routes            | Not yet built                             | Added `/brand` hub and 4 static detail pages.                                                                                                                                   | `src/pages/brand/index.astro`, `src/pages/brand/[slug].astro`; build output reports 29 pages including 5 brand routes                                                                                |
-| Discovery                   | Partially implemented                     | Added footer link, sitemap entries, and kit file headers.                                                                                                                       | `src/components/Footer.astro`, `src/pages/sitemap.xml.ts`, `public/_headers`                                                                                                                         |
-| CI jobs                     | Implemented                               | Added brand generator dependencies, `npm run brand:build`, and brand Lighthouse CI.                                                                                             | `.github/workflows/ci.yml`, `lighthouserc.brand.cjs`, `package.json`                                                                                                                                 |
-| Node / deck generation      | Available                                 | Node `v24.14.0`; `pptxgenjs@4.0.1`; `jszip@3.10.1` normalizes PPTX timestamps.                                                                                                  | `node --version`, `npm ls pptxgenjs jszip --depth=0`, `scripts/brand/build.mjs`                                                                                                                      |
-| Python / PDF generation     | Available                                 | Python `3.12.13`; ReportLab `4.4.9`; generated 4 guideline PDFs.                                                                                                                | `scripts/brand/generate-pdfs.py`, `python3 -c "import reportlab; print(reportlab.Version)"`                                                                                                          |
-| SVG/PNG rasterizer          | Available                                 | `sharp@0.35.3` rendered SVG/OG PNGs; Poppler `pdftoppm 26.05.0` rendered PDF pages.                                                                                             | `work/brand-qa/svg-renders` -> 20 PNGs; `work/brand-qa/pdf-renders` -> 32 PNGs                                                                                                                       |
-| PPTX render QA              | Blocked locally                           | LibreOffice exists but aborts during headless PPTX conversion; PPTX binaries are generated and manifest-hashed, but PPTX screenshot QA is blocked on this machine.              | `/opt/homebrew/bin/soffice --version` -> `LibreOffice 26.2.3.2`; `npm run brand:build` warns `Abort trap: 6`; `work/brand-qa/pptx-renders` -> 0                                                      |
+| Surface / toolchain     | Initial classification                       | Action in this branch                                                                                                  | Evidence                                                                                                                   |
+| ----------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Source deck             | Present outside repo                         | Added committed provenance copy.                                                                                       | `assets/source/application-modernization-cloud-devops-sales-deck.pdf`; `pdfinfo` -> 24 pages, 1280 x 720 pt                |
+| Source text layer       | PDF text layer empty                         | Used the matching local PPTX only for extraction, while keeping the PDF as committed provenance.                       | `work/deck-qa/source-text.txt` contains page breaks only; source PPTX extraction produced slides 1-24                      |
+| Source visual QA        | Generic light theme with multi-color accents | Rendered all 24 source slides and created contact sheet to identify colors, bars, stripes, and cramped rows to remove. | `work/deck-qa/source-renders`, `work/deck-qa/source-contact-sheet.png`                                                     |
+| Content map             | Missing                                      | Added 24/24 source-to-target mapping and 16-slide target structure.                                                    | `docs/deck-content-map.md`                                                                                                 |
+| Brand tokens            | Available from data layer                    | Deck generator imports `src/data/brands.ts` instead of duplicating core brand values by hand.                          | `scripts/deck/build-sales-deck.mjs`                                                                                        |
+| PPTX generator          | `pptxgenjs` available                        | Added reproducible `npm run deck:build` script.                                                                        | `package.json`, `scripts/deck/build-sales-deck.mjs`                                                                        |
+| PDF conversion          | LibreOffice available but sandbox-sensitive  | Conversion succeeds when the deck build runs outside the sandbox; CI installs LibreOffice explicitly.                  | `work/deck-qa/libreoffice-conversion.txt`, `.github/workflows/ci.yml`                                                      |
+| Render QA               | Poppler available                            | Generated 16 final slide renders and contact sheet from the LibreOffice PDF.                                           | `work/deck-qa/final-renders`, `work/deck-qa/sales-deck-contact-sheet.png`                                                  |
+| Brand manifest          | Existing brand-kit manifest                  | Added sales deck PPTX/PDF with bytes, MIME, and sha256.                                                                | `public/brand/manifest.json`                                                                                               |
+| Resource page           | Missing                                      | Added `/resources/modernization-deck` with previews, 3S block, downloads, and JSON-LD.                                 | `src/pages/resources/modernization-deck.astro`                                                                             |
+| Cross-links             | Missing                                      | Linked from `/services` and all four pillar pages.                                                                     | `src/pages/services/index.astro`, `src/pages/services/[slug].astro`                                                        |
+| SEO / sitemap / headers | Partially implemented                        | Added OG PNG, sitemap entry, immutable preview headers, and Report/DigitalDocument JSON-LD.                            | `public/og/northlace-modernization-deck.png`, `src/pages/sitemap.xml.ts`, `public/_headers`                                |
+| CI and gates            | Existing CI                                  | Added deck build, LibreOffice install, resource Lighthouse config, and new unit/e2e checks.                            | `.github/workflows/ci.yml`, `lighthouserc.resources.cjs`, `tests/unit/sales-deck-*.test.ts`, `tests/e2e/resources.spec.ts` |
 
-## Generation Log
+## Content Map Summary
 
-| Asset class      | Result                                                                                                | Evidence                                                                                                              |
-| ---------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Typed brand data | Exactly 4 brands, all pages/assets read from `src/data/brands.ts`.                                    | `tests/unit/brands.test.ts`                                                                                           |
-| SVG logos        | 5 variants per brand, 20 total, XML-parse tested and rendered to PNG.                                 | `public/brand/*/*.svg`, `tests/unit/brand-svg.test.ts`, `work/brand-qa/svg-renders`                                   |
-| Guideline PDFs   | 1 PDF per brand, 8 pages each; 32 page renders produced.                                              | `public/brand/*/*-brand-guidelines.pdf`, `scripts/brand/generate-pdfs.py`, `work/brand-qa/pdf-renders`                |
-| PPTX templates   | 1 generated 9-slide PPTX per brand; timestamps normalized for stable hashes.                          | `public/brand/*/*-deck-template.pptx`, `scripts/brand/build.mjs`                                                      |
-| OG images        | 1 PNG per brand, 1200x630.                                                                            | `public/brand/*/*-og.png`                                                                                             |
-| Manifest         | 32 kit files with byte size, MIME, and sha256; second `brand:build` produced byte-identical manifest. | `public/brand/manifest.json`; `cmp -s /tmp/northlace-brand-manifest-before.json public/brand/manifest.json` -> exit 0 |
+- Source slides mapped: 24/24.
+- Target deck length: 16 slides.
+- Preserved source content: executive proposition, market facts, service portfolio, standards/frameworks, 5-phase delivery path, deliverable packs, proof points, ROI model with “How to use this slide,” free-assessment offers, and recommended close.
+- Reworked source defects: multi-color accent bars, colored edge stripes, rainbow stat colors, repeated service headers, cramped process rows, truncated headings, and mixed color semantics.
+- Required open markers retained: `TODO-COPY`, `TODO-OFFER`, `TODO-PRICE`, `TODO-METRIC`, `HUMAN_DECISION_GATE`, and `#TODO-LINK`.
 
-## Gates
+## QA Findings And Fixes
 
-| Gate                       | Result                                                                                                            | Evidence                                                                                                                  |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Kit completeness           | Passed: 4 brands x 8 files = 32 kit files + manifest.                                                             | `node -e` manifest count -> `4 32`; `find public/brand -type f` count -> 33                                               |
-| Reproducibility            | Passed locally: repeated `npm run brand:build` kept manifest byte-identical.                                      | `cmp -s /tmp/northlace-brand-manifest-before.json public/brand/manifest.json` -> exit 0                                   |
-| Asset serving              | Passed: 33/33 files return 200; preview headers plus Cloudflare `_headers` MIME policy verified.                  | `tests/e2e/brand-assets.spec.ts`; `npm run test:e2e` -> 14 passed                                                         |
-| SVG validity               | Passed: 20/20 SVGs parse as XML with expected dimensions.                                                         | `tests/unit/brand-svg.test.ts`; `npm run test` -> 13 files, 66 tests passed                                               |
-| Manifest integrity         | Passed: all manifest sizes, MIME values, and sha256 hashes match disk files.                                      | `tests/unit/brand-manifest.test.ts`                                                                                       |
-| Accessibility              | Passed: 28 axe route checks, including `/brand` and all 4 brand pages.                                            | `npm run test:a11y` -> 28 passed                                                                                          |
-| Responsive overflow        | Passed across 360, 768, 1024, and 1440 px route set including brand routes.                                       | `tests/e2e/responsive.spec.ts`; `npm run test:e2e` -> 14 passed                                                           |
-| Lighthouse existing routes | Passed configured assertions.                                                                                     | `npm run lhci`; `.lighthouseci/manifest.json`                                                                             |
-| Lighthouse brand routes    | Passed: `/brand` + 4 detail pages scored 1.0 / 1.0 / 1.0 / 1.0.                                                   | `npm run lhci:brand`; `.lighthouseci-brand/manifest.json`                                                                 |
-| Token compliance           | Passed: no raw hex literals in brand component chrome scan.                                                       | `tests/unit/brand-token-compliance.test.ts`                                                                               |
-| Content QA                 | Passed: no `TODO-COPY`, `TODO-METRIC`, or lorem ipsum in built output; `#TODO-LINK` is intentionally inventoried. | `npm run lint:production-content`; `npm run report:content-markers`                                                       |
-| Lint / format / typecheck  | Passed.                                                                                                           | `npm run lint`; `npm run format:check`; `npm run typecheck` -> 0 errors                                                   |
-| Security                   | Passed high-severity audit and secret scan; moderate LHCI transitive `uuid` advisory remains.                     | `npm run security:secrets`; escalated `npm run security:audit`                                                            |
-| Fresh-eyes visual QA       | Passed for PDF/SVG after one fix cycle.                                                                           | Subagent inspected all 32 PDF page renders and 20 SVG render PNGs; recheck confirmed all prior PDF/SVG findings resolved. |
+| Finding                                                                 | Fix                                                                                                                  | Evidence                                                                     |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Source PDF has no usable text layer.                                    | Used the matching local PPTX for extraction only and committed the source PDF for provenance.                        | `docs/deck-content-map.md` source inspection notes                           |
+| Source deck used Google-style multi-color accent bars and edge stripes. | New deck uses Northlace Deep Teal, Warm White, Mid Teal, and Signal Teal; red/amber/green are not used decoratively. | `work/deck-qa/theme-and-offer-audit.json` -> `bannedSourceColorHits: []`     |
+| Source process rows had tight number/text spacing.                      | Rebuilt the 5-phase path as stable stage blocks.                                                                     | Slide 9 render in `work/deck-qa/final-renders`                               |
+| Pricing slide audit required exact phrase casing.                       | Updated slide 14 to include “quick wins found in the assessment routinely fund the pilot.”                           | `scripts/deck/build-sales-deck.mjs`; `tests/unit/sales-deck-outputs.test.ts` |
+| Production content lint would scan binary deck files as text.           | Limited production copy scan to text-like extensions.                                                                | `scripts/check-production-content.mjs`                                       |
+
+## Gate Table
+
+| Gate                                  | Status                    | Evidence                                                                                              |
+| ------------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Offer framework present               | Passed                    | `npm run test` -> 15 files, 71 tests passed; `tests/unit/sales-deck-outputs.test.ts` checks the PPTX  |
+| Source fidelity 24/24 map             | Passed                    | `npm run test` -> `tests/unit/sales-deck-content-map.test.ts`                                         |
+| Theme purity                          | Passed in build script    | `work/deck-qa/theme-and-offer-audit.json` -> no banned source colors                                  |
+| No invented facts                     | Passed by marker strategy | Pricing, ICP, guarantees, and proof points remain explicitly marked for human confirmation            |
+| Reproducibility                       | Passed                    | `npm run brand:build`, then approved `npm run deck:build`, regenerated PPTX/PDF/previews/manifest     |
+| Serving 2/2 files                     | Passed                    | `npm run test:e2e` -> 15 passed; deck PPTX/PDF return 200 with MIME policy                            |
+| Resource page axe                     | Passed                    | `npm run test:a11y` -> 29 passed, including `/resources/modernization-deck`                           |
+| Resource page Lighthouse 95/95/95/100 | Passed                    | `npm run lhci:resources` -> 0.99 / 1.00 / 1.00 / 1.00                                                 |
+| PR open and CI green                  | Passed                    | PR #3 opened: https://github.com/adeelarshad414/northlace-website/pull/3; CI `Verify` passed in 4m32s |
 
 ## TODO Inventory
 
-`npm run report:content-markers` currently reports 15 tracked marker occurrences:
-
-| Marker                |                     Count | Why present                                                                                                               |
-| --------------------- | ------------------------: | ------------------------------------------------------------------------------------------------------------------------- |
-| `#TODO-LINK`          |       1 source occurrence | Brand pages intentionally render pending social/domain/contact/trademark destinations as to be announced.                 |
-| `CHANGE_ME_DEV_ONLY`  |                        10 | Development-only runtime placeholders already registered in `DUMMY-VALUES.md`; production form code rejects dummy values. |
-| `HUMAN_DECISION_GATE` |                         3 | Transactional email provider choice and adapter implementation remain human decisions.                                    |
-| `PHASE_2_HOOK`        |                         2 | Cloudflare Turnstile verification remains pending real keys.                                                              |
-| `TODO-COPY`           |                         0 | No active source/build occurrences found.                                                                                 |
-| `TODO-METRIC`         | 0 in source/build content | PPTX slide 6 intentionally contains the placeholder footnote inside generated deck templates.                             |
+| Marker                | Why present                                                              |
+| --------------------- | ------------------------------------------------------------------------ |
+| `TODO-COPY`           | ICP needs human tightening for spend band, team size, and sector.        |
+| `TODO-OFFER`          | Guarantee terms are illustrative and require business approval.          |
+| `TODO-PRICE`          | Pilot pricing and scope bands require confirmation.                      |
+| `TODO-METRIC`         | Proof points need client-approved evidence before external distribution. |
+| `#TODO-LINK`          | Final public contact link remains pending.                               |
+| `HUMAN_DECISION_GATE` | Offer guarantee and gated-download decisions require human confirmation. |
 
 ## HUMAN_DECISION_GATE
 
-- Confirm social handles and public channel URLs for Adeel Codes Cloud, Signal & Scale, and The Cloud Lounge.
-- Confirm final domains/contact links for all four brands.
-- Complete The Cloud Lounge name collision check.
-- Complete Northlace trademark clearance before making any trademark claim.
-- Choose the transactional email provider and Turnstile keys from the previous production-readiness run.
+- Confirm whether the illustrative guarantee on slide 6 should be offered, revised, or removed.
+- Confirm pilot pricing, scope bands, and whether `$12K` remains the public entry example.
+- Confirm ICP specificity: cloud spend band, team size, sector focus, geography, and buyer priority.
+- Confirm whether downloads should remain ungated. Current implementation is ungated by default.
+- Attach client-approved proof evidence before any external distribution using the representative case metrics.
+- Replace `#TODO-LINK` with a real contact URL when the public destination is approved.
 
 ## Blocked
 
-- PPTX screenshot QA is blocked locally. `soffice --version` works, but headless conversion aborts with `Abort trap: 6` for each generated PPTX during `npm run brand:build`. The generated PPTX files are present, manifest-hashed, and reproducible; only PDF-to-image inspection of those PPTX decks is missing. The build script warns and continues so CI can still generate the kits where LibreOffice is absent or unstable.
+- LibreOffice PDF export aborts inside the sandbox on this macOS machine, but succeeds when the same `npm run deck:build` command is approved outside the sandbox. CI installs LibreOffice so the required PDF path remains part of the automated build.
 
 ## Recommended Next Run
 
-- Re-run PPTX render QA on a machine or CI image where LibreOffice headless conversion works, then inspect `work/brand-qa/pptx-renders`.
-- Replace `#TODO-LINK` lines with real public URLs only after the human decision gates above are complete.
-- Consider adding versioned filenames if brand assets will be cached immutable long-term across multiple public releases.
+- After this PR merges, confirm the human decision gates and run a copy-only pass that removes or resolves `TODO-*` and `HUMAN_DECISION_GATE` markers before client distribution.
+- Add client-specific baselines and proof evidence to slide 12 and slide 13 for each sales opportunity.
+- Decide whether the resource page should become gated after the first public review cycle.

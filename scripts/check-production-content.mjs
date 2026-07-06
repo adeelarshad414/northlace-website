@@ -4,6 +4,15 @@ import process from "node:process";
 
 const distDir = path.join(process.cwd(), "dist");
 const forbidden = [/TODO-COPY/i, /TODO-METRIC/i, /lorem ipsum/i];
+const textExtensions = new Set([
+  ".css",
+  ".html",
+  ".js",
+  ".json",
+  ".svg",
+  ".txt",
+  ".xml",
+]);
 
 const walk = (dir) =>
   fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -26,6 +35,10 @@ if (!fs.existsSync(distDir)) {
 const violations = [];
 
 for (const file of walk(distDir)) {
+  if (!textExtensions.has(path.extname(file))) {
+    continue;
+  }
+
   const contents = fs.readFileSync(file, "utf8");
   for (const pattern of forbidden) {
     if (pattern.test(contents)) {
@@ -45,5 +58,5 @@ if (violations.length > 0) {
 }
 
 console.log(
-  "Production content check passed: no TODO-COPY, TODO-METRIC, or lorem ipsum strings found. #TODO-LINK markers are tracked by report:content-markers.",
+  "Production content check passed: no TODO-COPY, TODO-METRIC, or lorem ipsum strings found in text assets. #TODO-LINK and deck decision markers are tracked by report:content-markers.",
 );

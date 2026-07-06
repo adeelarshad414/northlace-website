@@ -6,6 +6,7 @@ playwright-report/
 test-results/
 .lighthouseci/
 .lighthouseci-brand/
+.lighthouseci-resources/
 work/
 .env
 .DS_Store

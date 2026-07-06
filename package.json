@@ -12,6 +12,7 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "brand:build": "node scripts/brand/build.mjs",
+    "deck:build": "node scripts/deck/build-sales-deck.mjs",
     "typecheck": "ASTRO_TELEMETRY_DISABLED=1 astro check --tsconfig ./tsconfig.json",
     "lint": "eslint . --ext .astro,.ts,.js,.mjs,.cjs --max-warnings=0",
     "lint:content": "node scripts/lint-metric-placeholders.mjs",
@@ -25,7 +26,8 @@
     "test:a11y": "playwright test tests/e2e/a11y.spec.ts",
     "lhci": "lhci autorun --config=./lighthouserc.cjs",
     "lhci:brand": "lhci autorun --config=./lighthouserc.brand.cjs",
-    "test:full": "npm run brand:build && npm run lint && npm run lint:content && npm run report:content-markers && npm run security:secrets && npm run security:audit && npm run format:check && npm run typecheck && npm run test && npm run build && npm run lint:production-content && npm run test:e2e && npm run test:a11y && npm run lhci && npm run lhci:brand"
+    "lhci:resources": "lhci autorun --config=./lighthouserc.resources.cjs",
+    "test:full": "npm run brand:build && npm run deck:build && npm run lint && npm run lint:content && npm run report:content-markers && npm run security:secrets && npm run security:audit && npm run format:check && npm run typecheck && npm run test && npm run build && npm run lint:production-content && npm run test:e2e && npm run test:a11y && npm run lhci && npm run lhci:brand && npm run lhci:resources"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.0",

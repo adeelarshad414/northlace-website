@@ -15,6 +15,10 @@ if (!brand) throw new Error("Unknown brand");
 const manifestKey = brand.slug as keyof typeof manifest.brands;
 const files = manifest.brands[manifestKey].files;
 const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const assetInventoryCopy =
+  brand.slug === "northlace"
+    ? "The kit includes five SVG logo variants, one guideline PDF, one PPTX deck template, the modernization sales deck in PPTX and PDF, and one 1200x630 Open Graph image. Use these specs when extending the system into social, sales, or partnership surfaces."
+    : "The kit includes five SVG logo variants, one guideline PDF, one PPTX deck template, and one 1200x630 Open Graph image. Use these specs when extending the system into social or podcast surfaces.";
 const socialSpecs = [
   "YouTube banner 2560x1440, safe area 1546x423",
   "Thumbnail 1280x720",
@@ -183,11 +187,7 @@ const socialSpecs = [
       <h2 id="asset-specs" class="text-h2 text-northlace-900">
         Digital asset inventory
       </h2>
-      <p class="mt-4 max-w-3xl text-body">
-        The kit includes five SVG logo variants, one guideline PDF, one PPTX
-        deck template, and one 1200x630 Open Graph image. Use these specs when
-        extending the system into social or podcast surfaces.
-      </p>
+      <p class="mt-4 max-w-3xl text-body">{assetInventoryCopy}</p>
       <ul class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {
           socialSpecs.map((spec) => (

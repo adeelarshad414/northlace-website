@@ -45,6 +45,18 @@
           "sha256": "67bfbe8279aa5e39610dd5afefc027872aaa7089534ac540db21fa3cffdb06e0"
         },
         {
+          "bytes": 108820,
+          "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          "path": "/brand/northlace/northlace-modernization-sales-deck.pptx",
+          "sha256": "15887fa091267387f86b929aa4d7eca49fa330d80b3088031f6b8e95e3206650"
+        },
+        {
+          "bytes": 470488,
+          "mime": "application/pdf",
+          "path": "/brand/northlace/northlace-modernization-sales-deck.pdf",
+          "sha256": "3b6ec2f99b5245aa229dc3e8e21c93fd6eb6a6ff6638274e520c9b22195eabe7"
+        },
+        {
           "bytes": 50225,
           "mime": "image/png",
           "path": "/brand/northlace/northlace-og.png",

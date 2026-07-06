@@ -6,6 +6,7 @@ const root = process.cwd();
 const scanTargets = [
   ".env.example",
   "DUMMY-VALUES.md",
+  "PROGRESS.md",
   "README.md",
   "docs",
   "functions",
@@ -24,6 +25,8 @@ const ignoredDirs = new Set([
 const markers = [
   "TODO-COPY",
   "TODO-METRIC",
+  "TODO-OFFER",
+  "TODO-PRICE",
   "#TODO-LINK",
   "HUMAN_DECISION_GATE",
   "PHASE_2_HOOK",
