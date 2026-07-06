@@ -11,13 +11,27 @@ Both endpoints validate server-side and return structured JSON:
 { "ok": false, "message": "Please fix the highlighted fields.", "errors": {} }
 ```
 
-Valid submissions are sent through Resend-compatible transactional email using
-these environment variables:
+Valid submissions use the `MailDeliveryAdapter` interface. Development and
+this audit run default to `LogOnlyAdapter`, which writes a structured mock
+delivery event to function logs and returns success as **verified (mock)**.
 
-- `RESEND_API_KEY`
-- `FORMS_FROM_EMAIL`
-- `FORMS_TO_EMAIL`
+Environment variables:
 
-If delivery is not configured or the provider rejects the request, the endpoint
-returns a non-2xx JSON response and tells the visitor to email
-`hello@northlace.example`. Submissions are never silently discarded.
+- `ENVIRONMENT`
+- `SITE_ORIGIN`
+- `MAIL_DELIVERY_MODE`
+- `MAIL_FROM_EMAIL`
+- `MAIL_TO_EMAIL`
+- `MAIL_PROVIDER_API_KEY`
+- `TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET_KEY`
+
+`MAIL_DELIVERY_MODE=provider` is intentionally behind a `HUMAN_DECISION_GATE`
+until Northlace chooses the transactional provider. `CHANGE_ME_DEV_ONLY` values
+are documented in `DUMMY-VALUES.md` and are rejected by the form functions when
+`ENVIRONMENT=production`.
+
+Both endpoints include server-side Zod validation, honeypot and time-to-submit
+checks, payload size limits, origin checks, rate limiting, JSON responses for
+enhanced forms, and server-rendered HTML success/error pages for no-JavaScript
+form submissions. User-facing errors do not expose stack traces.

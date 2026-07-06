@@ -8,6 +8,7 @@ import {
   servicePillars,
   type ServicePillarId,
 } from "../../data/services";
+import { buildBreadcrumbJsonLd } from "../../lib/seo";
 
 export const getStaticPaths = () =>
   servicePillars.map((pillar) => ({ params: { slug: pillar.id } }));
@@ -20,12 +21,18 @@ const related = (await getCollection("case-studies"))
     (entry) => !entry.data.draft && entry.data.pillars.includes(pillar.id),
   )
   .slice(0, 2);
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
 ---
 
 <Layout
   title={`${pillar.name} | Northlace`}
   description={pillar.description}
   canonicalPath={pillar.href}
+  structuredData={buildBreadcrumbJsonLd(siteUrl, [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: pillar.name, path: pillar.href },
+  ])}
 >
   <section class="bg-northlace-900 py-16 text-text-on-dark md:py-24">
     <div class="mx-auto max-w-6xl px-6">

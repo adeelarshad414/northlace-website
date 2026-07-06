@@ -5,6 +5,7 @@ import ContactForm from "../../components/ContactForm.astro";
 import Layout from "../../layouts/Layout.astro";
 import { formatDate } from "../../lib/dates";
 import { isRoleClosed } from "../../lib/filters";
+import { buildBreadcrumbJsonLd } from "../../lib/seo";
 
 export const getStaticPaths = async () => {
   const entries = (await getCollection("careers")).filter(
@@ -18,12 +19,19 @@ export const getStaticPaths = async () => {
 
 const { entry } = Astro.props;
 const closed = isRoleClosed(entry.data.closesDate);
+const canonicalPath = `/careers/${entry.id}`;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
 ---
 
 <Layout
   title={`${entry.data.title} | Northlace Careers`}
   description={entry.data.summary}
-  canonicalPath={`/careers/${entry.id}`}
+  canonicalPath={canonicalPath}
+  structuredData={buildBreadcrumbJsonLd(siteUrl, [
+    { name: "Home", path: "/" },
+    { name: "Careers", path: "/careers" },
+    { name: entry.data.title, path: canonicalPath },
+  ])}
 >
   <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
     {

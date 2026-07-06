@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Northlace social preview</title>
+  <desc id="desc">Northlace wordmark with cloud, security, cost, and modernization service pillars.</desc>
+  <rect width="1200" height="630" fill="#0B1B2B"/>
+  <rect x="80" y="78" width="1040" height="474" rx="36" fill="#F7F4EC"/>
+  <path d="M155 175h120m-120 58h120m-120 58h120m-120 58h120" stroke="#2D7C88" stroke-width="22" stroke-linecap="round"/>
+  <path d="M340 359c0-65 52-118 118-118 28 0 53 10 73 26 31-63 95-105 169-105 104 0 188 84 188 188" fill="none" stroke="#BA7517" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="340" y="235" fill="#0B1B2B" font-family="Inter, Arial, sans-serif" font-size="92" font-weight="700">Northlace</text>
+  <text x="342" y="306" fill="#2D3A45" font-family="Inter, Arial, sans-serif" font-size="38">Every cloud. One standard.</text>
+  <text x="342" y="430" fill="#0B1B2B" font-family="Inter, Arial, sans-serif" font-size="34">Run / Shield / Ledger / Shift</text>
+</svg>

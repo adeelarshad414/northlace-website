@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import CTABanner from "../../components/CTABanner.astro";
 import Layout from "../../layouts/Layout.astro";
 import { pillarLabel } from "../../data/services";
+import { buildBreadcrumbJsonLd } from "../../lib/seo";
 
 export const getStaticPaths = async () => {
   const entries = (await getCollection("case-studies")).filter(
@@ -16,12 +17,19 @@ export const getStaticPaths = async () => {
 };
 
 const { entry } = Astro.props;
+const canonicalPath = `/case-studies/${entry.id}`;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
 ---
 
 <Layout
   title={entry.data.seo.title}
   description={entry.data.seo.description}
-  canonicalPath={`/case-studies/${entry.id}`}
+  canonicalPath={canonicalPath}
+  structuredData={buildBreadcrumbJsonLd(siteUrl, [
+    { name: "Home", path: "/" },
+    { name: "Case studies", path: "/case-studies" },
+    { name: entry.data.title, path: canonicalPath },
+  ])}
 >
   <section class="bg-northlace-900 py-16 text-text-on-dark md:py-24">
     <div class="mx-auto max-w-6xl px-6">

@@ -7,6 +7,7 @@ interface Props {
 
 const { context = "contact", roleSlug = "", roleTitle = "" } = Astro.props;
 const isApply = context === "apply";
+const submittedAt = Date.now();
 ---
 
 <form
@@ -16,6 +17,23 @@ const isApply = context === "apply";
   data-enhanced-form
   novalidate
 >
+  <div class="sr-only" aria-hidden="true">
+    <label for={`${context}-website`}>Website</label>
+    <input
+      id={`${context}-website`}
+      name="website"
+      type="text"
+      autocomplete="off"
+      tabindex="-1"
+    />
+  </div>
+  <input
+    type="hidden"
+    name="submittedAt"
+    value={String(submittedAt)}
+    data-submitted-at
+  />
+
   {
     isApply && (
       <>

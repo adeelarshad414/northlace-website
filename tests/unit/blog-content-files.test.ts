@@ -30,10 +30,11 @@ describe("brand launch blog post files", () => {
       const result = blogSchema.safeParse(parsed.data);
 
       expect(result.success).toBe(true);
-      expect(parsed.data.heroImage).toBeUndefined();
+      expect(parsed.data.heroImage).toMatch(/^\/og\/.+\.svg$/);
       expect(parsed.content).toContain("<svg");
       expect(parsed.content).toMatch(new RegExp(`<h1[\\s\\S]*?${brandName}`));
-      expect(parsed.content.match(/#TODO-LINK/g)).toHaveLength(3);
+      expect(parsed.content).not.toContain("#TODO-LINK");
+      expect(parsed.content).toMatch(/pending final\s+channel\s+approval/);
       expect(
         parsed.content.match(
           /^## (What To Expect|Brand Palette|Where To Find It)$/gm,

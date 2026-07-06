@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Signal &amp; Scale social preview</title>
+  <desc id="desc">A waveform resolving from jagged to clear for Signal and Scale.</desc>
+  <rect width="1200" height="630" fill="#14171C"/>
+  <path d="M94 342 178 164l82 318 96-382 102 340 112-226 98 150 110-122 104 88 116-64" fill="none" stroke="#4FD1C5" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M660 424h285" fill="none" stroke="#8FE0D6" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="997" cy="424" r="24" fill="#D4537E"/>
+  <text x="92" y="150" fill="#F4F6F7" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="700">Signal &amp; Scale</text>
+  <text x="96" y="229" fill="#8FE0D6" font-family="Inter, Arial, sans-serif" font-size="34">Cutting the noise on cloud, careers, and AI-native work.</text>
+</svg>

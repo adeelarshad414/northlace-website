@@ -6,3 +6,6 @@ playwright-report
 test-results
 .lighthouseci
 northlace-spec-kit
+public/_headers
+public/_redirects
+public/og/*.svg
