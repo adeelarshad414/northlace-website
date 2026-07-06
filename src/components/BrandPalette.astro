@@ -1,0 +1,40 @@
+---
+import type { Brand } from "../data/brands";
+
+interface Props {
+  brand: Brand;
+}
+
+const { brand } = Astro.props;
+---
+
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-brand-palette>
+  {
+    brand.palette.map((color) => (
+      <article
+        class="rounded-lg border border-northlace-900/10 bg-surface-warm p-4 text-northlace-900"
+        aria-label={`${color.name}, ${color.hex}, ${color.role}`}
+      >
+        <div
+          class="mb-4 h-20 rounded-md border border-northlace-900/10"
+          style={`background:${color.hex}`}
+          aria-hidden="true"
+        />
+        <h3 class="text-h3">{color.name}</h3>
+        <p class="mt-2 font-mono text-small">{color.hex}</p>
+        <p class="mt-3 text-small text-northlace-700">{color.role}</p>
+        <button
+          class="mt-4 rounded-md border border-northlace-700 px-3 py-2 text-small text-northlace-700 hover:border-northlace-900 hover:text-northlace-900"
+          type="button"
+          data-copy-color={color.hex}
+        >
+          Copy hex
+        </button>
+      </article>
+    ))
+  }
+</div>
+
+<script>
+  import "../scripts/brand-palette";
+</script>

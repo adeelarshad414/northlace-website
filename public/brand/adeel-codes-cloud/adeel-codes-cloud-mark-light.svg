@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-labelledby="adeel-codes-cloud-mark-light-title"><title id="adeel-codes-cloud-mark-light-title">Adeel Codes Cloud mark light</title><rect width="400" height="400" rx="48" fill="#F1EFE8"/>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#0F2A1F" stroke-width="17">
+          <path d="M72 232 150 126l62 76 44-58 78 100"/>
+          <path d="M94 292h78m52 0h82"/>
+          <path d="M172 292v-45m52 45v-36"/>
+        </g>
+        <circle cx="94" cy="292" r="9" fill="#0F2A1F"/>
+        <circle cx="306" cy="292" r="9" fill="#0F2A1F"/>
+        <circle cx="198" cy="292" r="14" fill="#0F2A1F" stroke="#0F2A1F" stroke-width="12"/>
+        <circle cx="306" cy="96" r="15" fill="#D85A30"/></svg>

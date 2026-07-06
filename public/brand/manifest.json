@@ -1,0 +1,212 @@
+{
+  "brands": {
+    "northlace": {
+      "files": [
+        {
+          "bytes": 790,
+          "mime": "image/svg+xml",
+          "path": "/brand/northlace/northlace-icon-transparent.svg",
+          "sha256": "79e329ec332a3c09c846623fa3df8849b11eac11d1150d57c1d3b7766fc24293"
+        },
+        {
+          "bytes": 701,
+          "mime": "image/svg+xml",
+          "path": "/brand/northlace/northlace-mark-dark.svg",
+          "sha256": "07d644f6b23c63159409d1e315bfa7049eff94cf04c27f15c6a580610b167cb6"
+        },
+        {
+          "bytes": 704,
+          "mime": "image/svg+xml",
+          "path": "/brand/northlace/northlace-mark-light.svg",
+          "sha256": "e176c5b43499d48869609ef3c185e264c1ef421b1f668a5924b9f70bba80b94a"
+        },
+        {
+          "bytes": 1138,
+          "mime": "image/svg+xml",
+          "path": "/brand/northlace/northlace-lockup-horizontal-dark.svg",
+          "sha256": "5ac37112c0d28b42903af3cef0357fe56315ee9b0f76b8178efd3f976467770f"
+        },
+        {
+          "bytes": 1141,
+          "mime": "image/svg+xml",
+          "path": "/brand/northlace/northlace-lockup-horizontal-light.svg",
+          "sha256": "c29ac03f3c6caa3bddbfd7c4611420d8ce1f044869381b25410cb1e46f960550"
+        },
+        {
+          "bytes": 107990,
+          "mime": "application/pdf",
+          "path": "/brand/northlace/northlace-brand-guidelines.pdf",
+          "sha256": "c8a27f0392eb667d38402798e8cbde460a0834be6f550320c2c6515f93807a83"
+        },
+        {
+          "bytes": 117097,
+          "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          "path": "/brand/northlace/northlace-deck-template.pptx",
+          "sha256": "67bfbe8279aa5e39610dd5afefc027872aaa7089534ac540db21fa3cffdb06e0"
+        },
+        {
+          "bytes": 50225,
+          "mime": "image/png",
+          "path": "/brand/northlace/northlace-og.png",
+          "sha256": "4f26355396320aff4ed55490c41f0d0fa38ad08b33a16ed5062362f74202dbc1"
+        }
+      ]
+    },
+    "adeel-codes-cloud": {
+      "files": [
+        {
+          "bytes": 946,
+          "mime": "image/svg+xml",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-icon-transparent.svg",
+          "sha256": "d84dd5ddb42b5367545ccd9b9bea3d7df518de206601aa217d3d6c428a57aea9"
+        },
+        {
+          "bytes": 818,
+          "mime": "image/svg+xml",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-mark-dark.svg",
+          "sha256": "ffb463beeda72a52d7d421e6d5a235f890bb4df5a0cb3cdd4c33eeb9c0a0db5c"
+        },
+        {
+          "bytes": 821,
+          "mime": "image/svg+xml",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-mark-light.svg",
+          "sha256": "0a38f05e8b1339b161a06ec62a993eab1920c2324e9f3973de1e8ad5ca51a5dc"
+        },
+        {
+          "bytes": 1277,
+          "mime": "image/svg+xml",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-lockup-horizontal-dark.svg",
+          "sha256": "fd1503bb83fc390bedbb0d23ef799cdd92ed63d0e8e4119b52812543ddaaa82c"
+        },
+        {
+          "bytes": 1280,
+          "mime": "image/svg+xml",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-lockup-horizontal-light.svg",
+          "sha256": "ae0edc2d91fde9cff689232318ee4253f8c9b0648c7663bd87db80de9b2ce235"
+        },
+        {
+          "bytes": 95324,
+          "mime": "application/pdf",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-brand-guidelines.pdf",
+          "sha256": "af85c0fb066f0a430ad416d2b2925177c21a2598ef32173713a1e481eb5a691b"
+        },
+        {
+          "bytes": 100232,
+          "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-deck-template.pptx",
+          "sha256": "81d39e857aee6cf7171878556b17e2685876010e695c5fe16b362d397e170089"
+        },
+        {
+          "bytes": 51015,
+          "mime": "image/png",
+          "path": "/brand/adeel-codes-cloud/adeel-codes-cloud-og.png",
+          "sha256": "09108e73c8dfc4e74262a635c502d24552252903f0f70fd468b14d3f4e3990b1"
+        }
+      ]
+    },
+    "signal-and-scale": {
+      "files": [
+        {
+          "bytes": 771,
+          "mime": "image/svg+xml",
+          "path": "/brand/signal-and-scale/signal-and-scale-icon-transparent.svg",
+          "sha256": "3b6b8fe84f94b180b97b01275b4830b8dbb74d937d34dd4753454704875d6e38"
+        },
+        {
+          "bytes": 664,
+          "mime": "image/svg+xml",
+          "path": "/brand/signal-and-scale/signal-and-scale-mark-dark.svg",
+          "sha256": "3e42c3afa3a0f9da1e1f23bb923b134d4f0c35d67025bed8db87b84df27710e7"
+        },
+        {
+          "bytes": 667,
+          "mime": "image/svg+xml",
+          "path": "/brand/signal-and-scale/signal-and-scale-mark-light.svg",
+          "sha256": "1b946a319f27d6759b5cd3720b3f3a6f5306bb9e6a8bdfd0581f7e4a17f82d41"
+        },
+        {
+          "bytes": 1140,
+          "mime": "image/svg+xml",
+          "path": "/brand/signal-and-scale/signal-and-scale-lockup-horizontal-dark.svg",
+          "sha256": "441174a3ca64ab466a29899c72305e0d3b40ec03e3afab15d54601468e25ceed"
+        },
+        {
+          "bytes": 1143,
+          "mime": "image/svg+xml",
+          "path": "/brand/signal-and-scale/signal-and-scale-lockup-horizontal-light.svg",
+          "sha256": "fcdcc11deac6687b35f9fee1d543bad3fbf10f21ed618518a45a63d8d128283d"
+        },
+        {
+          "bytes": 111066,
+          "mime": "application/pdf",
+          "path": "/brand/signal-and-scale/signal-and-scale-brand-guidelines.pdf",
+          "sha256": "50a0d05b36a7c96cbc977ab74d38c335338b1ee64d6065ff0ca1c56d12b61604"
+        },
+        {
+          "bytes": 110933,
+          "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          "path": "/brand/signal-and-scale/signal-and-scale-deck-template.pptx",
+          "sha256": "997f4b6d175647e1d39dab9946be0dc7c3177c6a5a70f0a32928442739dc4dee"
+        },
+        {
+          "bytes": 54296,
+          "mime": "image/png",
+          "path": "/brand/signal-and-scale/signal-and-scale-og.png",
+          "sha256": "2f4db965494c9778dbd81f99baeab436ec1a482d29cef40ac272017c6c0582c6"
+        }
+      ]
+    },
+    "the-cloud-lounge": {
+      "files": [
+        {
+          "bytes": 816,
+          "mime": "image/svg+xml",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-icon-transparent.svg",
+          "sha256": "fc8c5eb10d3a503fa0febbc37ca120454fa13de863b10df7d5ed0a22197a3a11"
+        },
+        {
+          "bytes": 680,
+          "mime": "image/svg+xml",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-mark-dark.svg",
+          "sha256": "929a84ea885b1d7243eb76b077f6c2df5481c5a6a904ad7dae3df0a4c319fadc"
+        },
+        {
+          "bytes": 683,
+          "mime": "image/svg+xml",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-mark-light.svg",
+          "sha256": "22a04fc3d5fc505ae5ec92f83e40c5f2fc9e1df06a68742512b9542b33a714c4"
+        },
+        {
+          "bytes": 1127,
+          "mime": "image/svg+xml",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-lockup-horizontal-dark.svg",
+          "sha256": "fdd07b5978c78d11fe6ae3a781a454efcc7287e5e3417d6eb54c60e88877760e"
+        },
+        {
+          "bytes": 1130,
+          "mime": "image/svg+xml",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-lockup-horizontal-light.svg",
+          "sha256": "805dac874252754b8457a46cac97be241c17f31ebfd72bbe0b0ceeb6c28c2fec"
+        },
+        {
+          "bytes": 86850,
+          "mime": "application/pdf",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-brand-guidelines.pdf",
+          "sha256": "d8314db274eb280d9af445bb151b6856b8ebb191d4d72689cd0f9eb38e0fa97d"
+        },
+        {
+          "bytes": 95981,
+          "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-deck-template.pptx",
+          "sha256": "fd917dbfdb4a1d74be6ca3a19e98b8d1bc6ce1737a27bc427e3927ec1cc46e90"
+        },
+        {
+          "bytes": 48631,
+          "mime": "image/png",
+          "path": "/brand/the-cloud-lounge/the-cloud-lounge-og.png",
+          "sha256": "fd6ff3cd286a2cd6a6f57835c4624ea5122a27f5c0c21a7f8b9dd21adc4d03f4"
+        }
+      ]
+    }
+  }
+}

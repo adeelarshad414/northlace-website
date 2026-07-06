@@ -1,0 +1,219 @@
+---
+import BrandKitDownloads from "../../components/BrandKitDownloads.astro";
+import BrandPalette from "../../components/BrandPalette.astro";
+import Layout from "../../layouts/Layout.astro";
+import { brands, getBrand } from "../../data/brands";
+import manifest from "../../../public/brand/manifest.json";
+import { buildBreadcrumbJsonLd } from "../../lib/seo";
+
+export const getStaticPaths = () =>
+  brands.map((brand) => ({ params: { slug: brand.slug } }));
+
+const brand = getBrand(Astro.params.slug ?? "");
+if (!brand) throw new Error("Unknown brand");
+
+const manifestKey = brand.slug as keyof typeof manifest.brands;
+const files = manifest.brands[manifestKey].files;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const socialSpecs = [
+  "YouTube banner 2560x1440, safe area 1546x423",
+  "Thumbnail 1280x720",
+  "Instagram profile 320x320, feed 1080x1350, stories 1080x1920",
+  "TikTok 1080x1920 with captions inside the center 80%",
+  "Open Graph 1200x630",
+  "Podcast art 3000x3000",
+];
+---
+
+<Layout
+  title={`${brand.name} Brand Guidelines | Northlace`}
+  description={`${brand.name} logo files, brand guidelines, deck template, color system, and download kit.`}
+  canonicalPath={`/brand/${brand.slug}`}
+  ogImage={brand.assets.og}
+  structuredData={buildBreadcrumbJsonLd(siteUrl, [
+    { name: "Home", path: "/" },
+    { name: "Brand systems", path: "/brand" },
+    { name: brand.name, path: `/brand/${brand.slug}` },
+  ])}
+>
+  <section
+    class="py-16 text-text-on-dark md:py-24"
+    style={`background:${brand.primaryDark}; color:${brand.primaryLight}`}
+  >
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1fr_2fr]">
+      <img
+        src={brand.assets.markDark}
+        alt={`${brand.name} mark`}
+        class="h-44 w-44"
+      />
+      <div>
+        <a class="text-small underline" href="/brand">Brand systems</a>
+        <h1 class="mt-4 text-h1">{brand.name}</h1>
+        <p class="mt-4 text-body" style={`color:${brand.primaryAccent}`}>
+          {brand.tagline}
+        </p>
+        <p class="mt-5 max-w-3xl text-body">
+          {brand.positioning ?? brand.bio}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <h2 class="text-h2 text-northlace-900">Logo story</h2>
+    <p class="mt-4 max-w-3xl text-body">{brand.logoGeometry}</p>
+    <p class="mt-4 max-w-3xl text-body">
+      Clearspace equals 25% of the mark height. Minimum sizes are 24 px / 10 mm
+      for the icon and 120 px for the lockup. Do not stretch, recolor, shadow,
+      rotate, or place the mark on low-contrast surfaces.
+    </p>
+    <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {
+        [
+          brand.assets.iconTransparent,
+          brand.assets.markDark,
+          brand.assets.markLight,
+          brand.assets.lockupDark,
+          brand.assets.lockupLight,
+        ].map((asset) => (
+          <figure class="rounded-lg border border-northlace-900/10 bg-surface-warm p-5">
+            <img
+              src={asset}
+              alt={`${brand.name} logo variant`}
+              loading="lazy"
+            />
+            <figcaption class="mt-3 break-all text-small text-northlace-700">
+              {asset.split("/").at(-1)}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-northlace-50 py-16 md:py-24" aria-labelledby="palette">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="palette" class="text-h2 text-northlace-900">Color system</h2>
+      <p class="mt-4 max-w-3xl text-body">
+        Primary colors carry 60-70% of the system. Accent colors stay below 10%
+        unless they are the main mark stroke. Red, amber, and green remain
+        status semantics, not decoration.
+      </p>
+      <div class="mt-8">
+        <BrandPalette brand={brand} />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div class="grid gap-10 md:grid-cols-2">
+      <div>
+        <h2 class="text-h2 text-northlace-900">Typography</h2>
+        <p class="mt-4 text-body">{brand.typography}</p>
+        <div class="mt-8 space-y-4 text-northlace-900">
+          <p class="text-display">Display specimen</p>
+          <p class="text-h1">Heading specimen</p>
+          <p class="text-h2">Section specimen</p>
+          <p class="text-body">Body specimen for long-form guideline copy.</p>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-h2 text-northlace-900">Voice and pillars</h2>
+        <p class="mt-4 text-body">{brand.positioning ?? brand.bio}</p>
+        {
+          brand.altTaglines.length > 0 && (
+            <ul class="mt-5 space-y-2 text-body">
+              {brand.altTaglines.map((tagline) => (
+                <li>{tagline}</li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+    <div class="mt-10 grid gap-4 md:grid-cols-4">
+      {
+        brand.pillars.map((pillar) => (
+          <article class="rounded-lg border border-northlace-900/10 p-5">
+            <h3 class="text-h3 text-northlace-900">{pillar.name}</h3>
+            <p class="mt-3 text-small">{pillar.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-northlace-50 py-16 md:py-24" aria-labelledby="do-dont">
+    <div class="mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-2">
+      <div>
+        <h2 id="do-dont" class="text-h2 text-northlace-900">Do</h2>
+        <ul class="mt-5 space-y-3 text-body">
+          <li>Use the provided lockups and keep generous clearspace.</li>
+          <li>Keep dark-first surfaces and the brand's own light surface.</li>
+          <li>Label unconfirmed social and contact destinations clearly.</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-h2 text-northlace-900">Don't</h2>
+        <ul class="mt-5 space-y-3 text-body">
+          <li>Do not mix another brand's palette into this system.</li>
+          <li>Do not invent social handles, domains, or trademark claims.</li>
+          <li>Do not use pure white as a brand surface.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <h2 class="text-h2 text-northlace-900">Pending decisions</h2>
+    <p class="mt-4 max-w-3xl text-body">
+      These facts are intentionally not asserted until confirmed.
+    </p>
+    <ul class="mt-5 space-y-3 text-body">
+      {brand.pending.map((item) => <li>{item}: #TODO-LINK to be announced</li>)}
+    </ul>
+    <p class="mt-6 max-w-3xl text-small text-northlace-700">
+      All assets on this page are original generated works for Adeel Arshad and
+      Northlace. Northlace trademark clearance remains pending.
+    </p>
+  </section>
+
+  <section class="bg-northlace-50 py-16 md:py-24" aria-labelledby="asset-specs">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="asset-specs" class="text-h2 text-northlace-900">
+        Digital asset inventory
+      </h2>
+      <p class="mt-4 max-w-3xl text-body">
+        The kit includes five SVG logo variants, one guideline PDF, one PPTX
+        deck template, and one 1200x630 Open Graph image. Use these specs when
+        extending the system into social or podcast surfaces.
+      </p>
+      <ul class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {
+          socialSpecs.map((spec) => (
+            <li class="rounded-lg border border-northlace-900/10 bg-surface-warm p-5 text-body">
+              {spec}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section
+    class="bg-northlace-50 py-16 md:py-24"
+    aria-labelledby="downloads-heading"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 id="downloads-heading" class="text-h2 text-northlace-900">
+        Downloads
+      </h2>
+      <p class="mt-4 max-w-3xl text-body">
+        Every download is listed in the kit manifest with size and sha256.
+      </p>
+      <div class="mt-8">
+        <BrandKitDownloads brand={brand} files={files} />
+      </div>
+    </div>
+  </section>
+</Layout>
