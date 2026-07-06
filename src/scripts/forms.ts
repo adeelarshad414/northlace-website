@@ -1,8 +1,6 @@
 import {
   validateApplySubmission,
   validateContactSubmission,
-  type ApplySubmission,
-  type ContactSubmission,
 } from "../lib/forms";
 
 const getField = (form: HTMLFormElement, name: string) =>
@@ -36,11 +34,18 @@ const serialize = (form: HTMLFormElement) =>
 
 const validate = (form: HTMLFormElement, payload: Record<string, string>) =>
   form.getAttribute("action") === "/api/apply"
-    ? validateApplySubmission(payload as ApplySubmission)
-    : validateContactSubmission(payload as ContactSubmission);
+    ? validateApplySubmission(payload)
+    : validateContactSubmission(payload);
 
 const enhanceForm = (form: HTMLFormElement) => {
   const status = form.querySelector<HTMLElement>("[data-form-status]");
+  const submittedAt = form.querySelector<HTMLInputElement>(
+    "[data-submitted-at]",
+  );
+
+  if (submittedAt) {
+    submittedAt.value = String(Date.now());
+  }
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -63,7 +68,10 @@ const enhanceForm = (form: HTMLFormElement) => {
     try {
       const response = await fetch(form.action, {
         body: JSON.stringify(payload),
-        headers: { "content-type": "application/json" },
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+        },
         method: "POST",
       });
       const result = (await response.json()) as {
@@ -83,6 +91,9 @@ const enhanceForm = (form: HTMLFormElement) => {
       }
 
       form.reset();
+      if (submittedAt) {
+        submittedAt.value = String(Date.now());
+      }
       if (status)
         status.textContent =
           result.message ?? "Thanks. We will reply within 1-2 business days.";

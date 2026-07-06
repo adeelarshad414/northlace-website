@@ -15,6 +15,7 @@ test("submits the contact form successfully without a full page reload", async (
   });
 
   await page.goto("/contact");
+  await page.waitForTimeout(1600);
   await page.getByLabel("Name").fill("Adeel Arshad");
   await page.getByLabel("Email").fill("adeel@example.com");
   await page
@@ -41,6 +42,7 @@ test("shows inline contact errors before sending malformed email", async ({
   });
 
   await page.goto("/contact");
+  await page.waitForTimeout(1600);
   await page.getByLabel("Name").fill("Adeel Arshad");
   await page.getByLabel("Email").fill("not-an-email");
   await page
@@ -62,12 +64,28 @@ test("contact page exposes a usable no-JavaScript fallback", async ({
 }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
+  await page.route("**/api/contact", async (route) => {
+    await route.fulfill({
+      body: "<!doctype html><html><body><main><h1>Submission received</h1><p>Thanks. We will reply within 1-2 business days.</p></main></body></html>",
+      contentType: "text/html",
+      status: 200,
+    });
+  });
 
   await page.goto("/contact");
+  await page.getByLabel("Name").fill("Adeel Arshad");
+  await page.getByLabel("Email").fill("adeel@example.com");
+  await page
+    .getByLabel("What are you looking for?")
+    .selectOption("Discovery call");
+  await page
+    .getByLabel("Message")
+    .fill("We need help standardizing cloud operations.");
+  await page.getByRole("button", { name: "Send message" }).click();
 
   await expect(
-    page.getByRole("link", { name: "hello@northlace.example" }).first(),
-  ).toHaveAttribute("href", "mailto:hello@northlace.example");
+    page.getByRole("heading", { name: "Submission received" }),
+  ).toBeVisible();
 
   await context.close();
 });

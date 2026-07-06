@@ -66,10 +66,18 @@ npm run test:full
 ## Forms
 
 Contact and application forms post to Cloudflare Pages Functions under
-`/api/contact` and `/api/apply`. Delivery uses Resend-compatible email
-configuration through `RESEND_API_KEY`, `FORMS_FROM_EMAIL`, and
-`FORMS_TO_EMAIL`; see [`docs/forms.md`](./docs/forms.md) and
-[`.env.example`](./.env.example).
+`/api/contact` and `/api/apply`. Delivery currently defaults to a structured
+log-only adapter for **verified (mock)** submissions; provider selection is a
+documented human decision gate. See [`docs/forms.md`](./docs/forms.md),
+[`DUMMY-VALUES.md`](./DUMMY-VALUES.md), and [`.env.example`](./.env.example).
+
+## Operations
+
+Cloudflare Pages provides deployment rollback from the project dashboard:
+open the production deployment history, choose a previously green deployment,
+and promote it to production. Keep `ENVIRONMENT=production` free of
+`CHANGE_ME_DEV_ONLY` values; the form functions reject dummy runtime values in
+production mode.
 
 The phase-gated implementation checklist is in
 [`northlace-spec-kit/tasks/task-breakdown.md`](./northlace-spec-kit/tasks/task-breakdown.md).

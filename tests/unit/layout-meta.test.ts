@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { buildPageMeta } from "../../src/lib/seo";
+import {
+  buildArticleJsonLd,
+  buildBreadcrumbJsonLd,
+  buildPageMeta,
+} from "../../src/lib/seo";
 
 describe("Layout metadata", () => {
   it("builds title and meta description from the first prop set", () => {
@@ -17,8 +21,12 @@ describe("Layout metadata", () => {
       canonicalUrl: "https://northlace.example/services",
       description:
         "Northlace services for cloud, security, finance operations, and modernization.",
+      ogImageHeight: 630,
       ogImageUrl: "https://northlace.example/og/services.png",
+      ogImageWidth: 1200,
+      siteName: "Northlace",
       title: "Services | Northlace",
+      twitterCard: "summary_large_image",
     });
   });
 
@@ -37,5 +45,52 @@ describe("Layout metadata", () => {
       "Learn how Northlace builds a consistent operating standard for cloud teams.",
     );
     expect(meta.canonicalUrl).toBe("https://northlace.example/about");
+  });
+
+  it("builds breadcrumb JSON-LD with absolute URLs", () => {
+    const schema = buildBreadcrumbJsonLd(new URL("https://northlace.example"), [
+      { name: "Home", path: "/" },
+      { name: "Services", path: "/services" },
+    ]);
+
+    expect(schema).toMatchObject({
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          item: "https://northlace.example/",
+          name: "Home",
+          position: 1,
+        },
+        {
+          item: "https://northlace.example/services",
+          name: "Services",
+          position: 2,
+        },
+      ],
+    });
+  });
+
+  it("builds article JSON-LD with publication metadata", () => {
+    const schema = buildArticleJsonLd({
+      author: "Adeel Arshad",
+      canonicalPath: "/blog/example",
+      description: "Example article summary.",
+      image: "/og/example.svg",
+      publishDate: new Date("2026-06-30T00:00:00.000Z"),
+      siteUrl: new URL("https://northlace.example"),
+      title: "Example Article",
+    });
+
+    expect(schema).toMatchObject({
+      "@type": "Article",
+      author: {
+        "@type": "Person",
+        name: "Adeel Arshad",
+      },
+      datePublished: "2026-06-30T00:00:00.000Z",
+      headline: "Example Article",
+      image: "https://northlace.example/og/example.svg",
+      mainEntityOfPage: "https://northlace.example/blog/example",
+    });
   });
 });

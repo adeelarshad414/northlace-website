@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { formatDate } from "../../lib/dates";
 import { getReadingTime } from "../../lib/reading-time";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd } from "../../lib/seo";
 import { countWords } from "../../lib/strings";
 
 export const getStaticPaths = async () => {
@@ -23,13 +24,33 @@ const related = posts
       candidate.data.tags.some((tag) => post.data.tags.includes(tag)),
   )
   .slice(0, 3);
+const canonicalPath = `/blog/${post.id}`;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const articleImage = post.data.heroImage ?? "/og/northlace-default.svg";
+const structuredData = [
+  buildBreadcrumbJsonLd(siteUrl, [
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.data.title, path: canonicalPath },
+  ]),
+  buildArticleJsonLd({
+    author: post.data.author,
+    canonicalPath,
+    description: post.data.seo.description,
+    image: articleImage,
+    publishDate: post.data.publishDate,
+    siteUrl,
+    title: post.data.title,
+  }),
+];
 ---
 
 <Layout
   title={post.data.seo.title}
   description={post.data.seo.description}
-  canonicalPath={`/blog/${post.id}`}
-  ogImage={post.data.heroImage}
+  canonicalPath={canonicalPath}
+  ogImage={articleImage}
+  structuredData={structuredData}
 >
   {
     isBrandLaunch ? (

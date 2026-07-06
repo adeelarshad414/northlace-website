@@ -3,7 +3,7 @@ import path from "node:path";
 import process from "node:process";
 
 const distDir = path.join(process.cwd(), "dist");
-const forbidden = [/TODO-COPY/i, /TODO-METRIC/i, /lorem ipsum/i];
+const forbidden = [/TODO-COPY/i, /TODO-METRIC/i, /#TODO-LINK/i, /lorem ipsum/i];
 
 const walk = (dir) =>
   fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -45,5 +45,5 @@ if (violations.length > 0) {
 }
 
 console.log(
-  "Production content check passed: no TODO-COPY, TODO-METRIC, or lorem ipsum strings found.",
+  "Production content check passed: no TODO-COPY, TODO-METRIC, #TODO-LINK, or lorem ipsum strings found.",
 );

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Adeel Codes Cloud social preview</title>
+  <desc id="desc">Mountain, circuit underline, and satellite dot mark for Adeel Codes Cloud.</desc>
+  <rect width="1200" height="630" fill="#0F2A1F"/>
+  <path d="M126 422 318 176l168 176 86-105 250 175" fill="none" stroke="#6FE3B4" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M176 502h258m0 0V392m0 110h274m0 0V370" fill="none" stroke="#9FE1CB" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="805" cy="371" r="28" fill="#F1EFE8"/>
+  <circle cx="925" cy="154" r="26" fill="#D85A30"/>
+  <text x="125" y="155" fill="#F1EFE8" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="700">Adeel Codes Cloud</text>
+  <text x="128" y="235" fill="#9FE1CB" font-family="Inter, Arial, sans-serif" font-size="36">Cloud, DevOps, and the career behind it.</text>
+</svg>
